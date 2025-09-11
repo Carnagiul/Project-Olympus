@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1923815907610971210}
   - component: {fileID: 5402224739990249410}
   - component: {fileID: 6048124949830090803}
+  - component: {fileID: 4055209614024430999}
   m_Layer: 7
   m_Name: PlayerPrefab
   m_TagString: Player
@@ -161,6 +162,7 @@ MonoBehaviour:
   baseDamage: 15
   damageType: 0
   currentHealth: 0
+  IsAlive: 1
   OnHealthChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -173,6 +175,10 @@ MonoBehaviour:
   OnDeath:
     m_PersistentCalls:
       m_Calls: []
+  respawnPosition: {x: 1, y: 3, z: 1}
+  respawnDelaySeconds: 3
+  hideRenderersDuringRespawn: 1
+  disableDuringRespawn: []
   statusText: {fileID: 0}
   pivotMode: 0
   walkSpeed: 4.5
@@ -199,6 +205,28 @@ MonoBehaviour:
   ceilingCheckDistance: 0.15
   equippedWeapon: {fileID: 2425928620625056771}
   playerCamera: {fileID: 1224660593960158096}
+--- !u!195 &4055209614024430999
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2853561736591031515}
+  m_Enabled: 0
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 1
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1 &5912124009432443476
 GameObject:
   m_ObjectHideFlags: 0
