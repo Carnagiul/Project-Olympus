@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(CharacterController))]
-public class FpsController : MonoBehaviour
+public class FpsController : EntityController
 {
     public enum PivotMode { Feet, Center }
 
@@ -65,8 +65,11 @@ public class FpsController : MonoBehaviour
     public float CurrentPlanarSpeed01 { get; private set; } // 0..1 par rapport au sprint
     public bool IsGroundedForCamera => isOnGround;
 
-    void Awake()
+    protected override void Awake()
     {
+
+        base.Awake(); 
+
         cc = GetComponent<CharacterController>();
         if (!enableCrouch) standHeight = cc.height;
 
