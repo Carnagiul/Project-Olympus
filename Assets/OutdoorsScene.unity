@@ -1773,7 +1773,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2257398643878825787, guid: 3d5a49788c27cd445834ed7b9051ac65, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 82.1
+      value: 81.93
       objectReference: {fileID: 0}
     - target: {fileID: 2257398643878825787, guid: 3d5a49788c27cd445834ed7b9051ac65, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1804,10 +1804,60 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 534505457040215690, guid: 3d5a49788c27cd445834ed7b9051ac65, type: 3}
+    - {fileID: 4123694725055262707, guid: 3d5a49788c27cd445834ed7b9051ac65, type: 3}
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 658160995175049110, guid: 3d5a49788c27cd445834ed7b9051ac65, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1496871629}
+    - targetCorrespondingSourceObject: {fileID: 3832881679335552860, guid: 3d5a49788c27cd445834ed7b9051ac65, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1496871630}
   m_SourcePrefab: {fileID: 100100000, guid: 3d5a49788c27cd445834ed7b9051ac65, type: 3}
+--- !u!1 &1496871627 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 658160995175049110, guid: 3d5a49788c27cd445834ed7b9051ac65, type: 3}
+  m_PrefabInstance: {fileID: 1496871626}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1496871628 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3832881679335552860, guid: 3d5a49788c27cd445834ed7b9051ac65, type: 3}
+  m_PrefabInstance: {fileID: 1496871626}
+  m_PrefabAsset: {fileID: 0}
+--- !u!111 &1496871629
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1496871627}
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Animation: {fileID: 0}
+  m_Animations: []
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_UpdateMode: 0
+  m_CullingType: 0
+--- !u!111 &1496871630
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1496871628}
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Animation: {fileID: 0}
+  m_Animations: []
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_UpdateMode: 0
+  m_CullingType: 0
 --- !u!1 &1579910213
 GameObject:
   m_ObjectHideFlags: 0
