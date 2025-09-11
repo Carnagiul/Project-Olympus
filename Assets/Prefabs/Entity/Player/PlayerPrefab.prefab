@@ -36,6 +36,7 @@ Transform:
   m_Children:
   - {fileID: 2253381562330056724}
   - {fileID: 3252662879674710695}
+  - {fileID: 8342466025657278062}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &8984416334475578544
@@ -154,7 +155,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2bc67414798bec244b88f8235887f649, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FpsController
+  maxHealth: 100
+  armor: 0
+  armorType: 0
+  baseDamage: 15
+  damageType: 0
+  currentHealth: 0
+  OnHealthChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDamaged:
+    m_PersistentCalls:
+      m_Calls: []
+  OnHealed:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDeath:
+    m_PersistentCalls:
+      m_Calls: []
   statusText: {fileID: 0}
+  pivotMode: 0
   walkSpeed: 4.5
   sprintSpeed: 7.5
   crouchSpeed: 2.5
@@ -171,13 +191,14 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   groundCheckDistance: 0.3
-  groundProbeRadius: 0.28
   maxSnapSpeed: 6
   maxSlopeAngle: 50
   slopeSlideGravity: 20
   stepOffsetSnap: 0.1
   ceilingProbeRadius: 0.26
   ceilingCheckDistance: 0.15
+  equippedWeapon: {fileID: 2425928620625056771}
+  playerCamera: {fileID: 1224660593960158096}
 --- !u!1 &5912124009432443476
 GameObject:
   m_ObjectHideFlags: 0
@@ -648,3 +669,88 @@ MonoBehaviour:
       enableFptlForForwardOpaque: 0
       enableBigTilePrepass: 0
       isFptlEnabled: 0
+--- !u!1001 &479462406778290330
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 8362642071925986512}
+    m_Modifications:
+    - target: {fileID: 2814122766136235161, guid: 57b033b23a8d8474ca3c54dc4be46494, type: 3}
+      propertyPath: owner
+      value: 
+      objectReference: {fileID: 6048124949830090803}
+    - target: {fileID: 2814122766136235161, guid: 57b033b23a8d8474ca3c54dc4be46494, type: 3}
+      propertyPath: aimCamera
+      value: 
+      objectReference: {fileID: 1224660593960158096}
+    - target: {fileID: 2814122766136235161, guid: 57b033b23a8d8474ca3c54dc4be46494, type: 3}
+      propertyPath: hittableLayers.m_Bits
+      value: 179
+      objectReference: {fileID: 0}
+    - target: {fileID: 5133177168258198867, guid: 57b033b23a8d8474ca3c54dc4be46494, type: 3}
+      propertyPath: m_Name
+      value: BaseWeapon
+      objectReference: {fileID: 0}
+    - target: {fileID: 8458041724113886964, guid: 57b033b23a8d8474ca3c54dc4be46494, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.14160919
+      objectReference: {fileID: 0}
+    - target: {fileID: 8458041724113886964, guid: 57b033b23a8d8474ca3c54dc4be46494, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.7666001
+      objectReference: {fileID: 0}
+    - target: {fileID: 8458041724113886964, guid: 57b033b23a8d8474ca3c54dc4be46494, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.39857483
+      objectReference: {fileID: 0}
+    - target: {fileID: 8458041724113886964, guid: 57b033b23a8d8474ca3c54dc4be46494, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8458041724113886964, guid: 57b033b23a8d8474ca3c54dc4be46494, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8458041724113886964, guid: 57b033b23a8d8474ca3c54dc4be46494, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8458041724113886964, guid: 57b033b23a8d8474ca3c54dc4be46494, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8458041724113886964, guid: 57b033b23a8d8474ca3c54dc4be46494, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8458041724113886964, guid: 57b033b23a8d8474ca3c54dc4be46494, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8458041724113886964, guid: 57b033b23a8d8474ca3c54dc4be46494, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 57b033b23a8d8474ca3c54dc4be46494, type: 3}
+--- !u!114 &2425928620625056771 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2814122766136235161, guid: 57b033b23a8d8474ca3c54dc4be46494, type: 3}
+  m_PrefabInstance: {fileID: 479462406778290330}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16cb3af34dd73f24684eb5c4c21889f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HitscanWeapon
+--- !u!4 &8342466025657278062 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8458041724113886964, guid: 57b033b23a8d8474ca3c54dc4be46494, type: 3}
+  m_PrefabInstance: {fileID: 479462406778290330}
+  m_PrefabAsset: {fileID: 0}

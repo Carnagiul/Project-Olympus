@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
@@ -39,7 +41,7 @@ public class EntityController : MonoBehaviour
     // Santé runtime
     [SerializeField, ReadOnly] private float currentHealth;
     public float CurrentHealth => currentHealth;
-    public bool IsAlive => currentHealth > 0f;
+    public bool IsAlive = true;
 
     // Événements
     [Header("Events")]
@@ -47,6 +49,14 @@ public class EntityController : MonoBehaviour
     public UnityEvent<float> OnDamaged;                      // (finalDamage)
     public UnityEvent<float> OnHealed;                       // (healAmount)
     public UnityEvent OnDeath;
+
+    [Header("Respawn (pour FpsController uniquement)")]
+    public Vector3 respawnPosition = new Vector3(1f, 3f, 1f);
+    [Min(0f)] public float respawnDelaySeconds = 3f;
+    [Tooltip("Masquer le mesh pendant le délai de respawn")]
+    public bool hideRenderersDuringRespawn = true;
+    [Tooltip("Composants à désactiver pendant le délai (si laissés vides, on essaie d’auto-détecter)")]
+    public Behaviour[] disableDuringRespawn;
 
     // --- Cycle ---
     protected virtual void Awake()
@@ -74,7 +84,11 @@ public class EntityController : MonoBehaviour
 
     public virtual void Kill()
     {
-        if (!IsAlive) return;
+        if (!IsAlive)
+        {
+            Debug.Log("EntityController.Kill() called on already dead entity!");
+            return;
+        }
         currentHealth = 0f;
         OnHealthChanged.Invoke(currentHealth, maxHealth);
         OnDeath.Invoke();
@@ -217,7 +231,73 @@ public class EntityController : MonoBehaviour
 
     // --- Hooks d’extension (override dans des sous-classes si besoin) ---
     protected virtual void OnHit(DamageInfo info, float finalDamage, float healthBefore) { }
-    protected virtual void OnKilled() { }
+
+    private IEnumerator RespawnPlayerRoutine()
+    {
+        // Références utiles
+        IsAlive = false;
+        var cc = GetComponent<CharacterController>();
+        var fps = GetComponent<FpsController>();
+
+        // 1) Désactiver contrôles / CC
+        List<Behaviour> toDisable = new List<Behaviour>();
+        if (disableDuringRespawn != null && disableDuringRespawn.Length > 0)
+            toDisable.AddRange(disableDuringRespawn);
+        else
+        {
+            // Auto-détection minimaliste
+            var b1 = GetComponent<FpsController>(); if (b1) toDisable.Add(b1);
+            var b2 = GetComponentInChildren<FpsLook>(true); if (b2) toDisable.Add(b2);
+            var b3 = GetComponentInChildren<FpsCameraEffects>(true); if (b3) toDisable.Add(b3);
+            var b4 = GetComponentInChildren<FpsAudio>(true); if (b4) toDisable.Add(b4);
+        }
+
+        foreach (var b in toDisable) if (b) b.enabled = false;
+        if (cc) cc.enabled = false;
+
+        // 2) Masquer le rendu (optionnel)
+        List<Renderer> hidden = null;
+        if (hideRenderersDuringRespawn)
+        {
+            hidden = new List<Renderer>(GetComponentsInChildren<Renderer>(true));
+            foreach (var r in hidden) r.enabled = false;
+        }
+
+        // 3) Attendre le délai
+        float t = Mathf.Max(0f, respawnDelaySeconds);
+        if (t > 0f) yield return new WaitForSeconds(t);
+        IsAlive = true;
+        // 4) Téléporter + reset santé
+        transform.position = respawnPosition;
+        // (facultatif) annuler toute vitesse physique externe si tu en utilises
+
+        // Reset HP et notifier UI
+        currentHealth = maxHealth;
+        OnHealthChanged.Invoke(currentHealth, maxHealth);
+
+        // 5) Réactiver rendu / CC / contrôles
+        if (hidden != null) foreach (var r in hidden) r.enabled = true;
+        if (cc) cc.enabled = true;
+        foreach (var b in toDisable) if (b) b.enabled = true;
+
+        // (facultatif) réinitialiser le headbob/FOV/états si nécessaire via des méthodes publiques
+    }
+
+
+    protected virtual void OnKilled()
+    {
+        // Joueur: respawn avec délai
+        if (this is FpsController)
+        {
+            StartCoroutine(RespawnPlayerRoutine());
+            return;
+        }
+
+        // Autres entités: supprimer
+        Destroy(gameObject);
+    }
+
+
 }
 
 

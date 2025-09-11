@@ -61,6 +61,10 @@ public class FpsController : EntityController
     // Audio (optionnel)
     private FpsAudio audioSfx;
 
+    [Header("Weapon")]
+    public HitscanWeapon equippedWeapon;
+    public Camera playerCamera; // ta caméra FPS (souvent Main Camera)
+
     // Exposés pour la caméra (headbob/FOV)
     public float CurrentPlanarSpeed01 { get; private set; } // 0..1 par rapport au sprint
     public bool IsGroundedForCamera => isOnGround;
@@ -81,6 +85,12 @@ public class FpsController : EntityController
         }
 
         audioSfx = GetComponent<FpsAudio>();
+
+        if (equippedWeapon != null)
+        {
+            if (equippedWeapon.owner == null) equippedWeapon.owner = this;
+            if (equippedWeapon.aimCamera == null) equippedWeapon.aimCamera = playerCamera;
+        }
     }
 
     void Update()
@@ -202,6 +212,30 @@ public class FpsController : EntityController
                 $"VelY: {velocity.y:0.00}\n" +
                 $"Pivot: {pivotMode}";
         }
+
+        // Dans Update() de FpsController (tout en bas)
+        if (equippedWeapon != null && equippedWeapon.WantsToFire())
+        {
+            if (equippedWeapon.TryFire(out HitscanWeapon.FireResult shot))
+            {
+                if (shot.hit)
+                {
+                    // On a touché : shot.target (peut être null si collider sans EntityController)
+                    // Exemple: afficher un hit marker, logger, etc.
+                    Debug.Log($"HIT {shot.target?.name} à {shot.point} pour {shot.damageApplied} dmg");
+                }
+                else
+                {
+                    // Tir parti mais raté
+                    Debug.Log("Miss");
+                }
+            }
+            else
+            {
+                // Bloqué par cooldown (ou refs manquantes) → shot.cooldownRemaining dispo
+                Debug.Log($"Cooldown… {equippedWeapon.CooldownRemaining:0.00}s");
+            }
+        }
     }
 
     // --- Probe avant Move : CapsuleCast aligné au CC ---
@@ -303,4 +337,5 @@ public class FpsController : EntityController
         Gizmos.color = Color.cyan;
         Gizmos.DrawRay(GetFeet(), groundNormal.normalized * 0.8f);
     }
+
 }
