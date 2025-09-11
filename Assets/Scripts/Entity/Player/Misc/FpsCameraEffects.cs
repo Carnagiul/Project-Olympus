@@ -8,23 +8,27 @@ public class FpsCameraEffects : MonoBehaviour
 
     [Header("Headbob")]
     public bool enableHeadbob = true;
-    public float bobFrequencyWalk = 1.8f;   // Hz à vitesse de marche
-    public float bobFrequencySprint = 2.6f; // Hz à sprint
-    public float bobAmpWalk = 0.03f;        // amplitude verticale
+    public float bobFrequencyWalk = 1.8f;
+    public float bobFrequencySprint = 2.6f;
+    public float bobAmpWalk = 0.03f;
     public float bobAmpSprint = 0.06f;
-    public float bobHorizontalScale = 0.5f; // 0..1 proportion latérale
-    public float bobReturnLerp = 8f;        // retour au repos à l’arrêt
+    public float bobHorizontalScale = 0.5f;
+    public float bobReturnLerp = 8f;
 
     [Header("FOV Kick")]
     public bool enableFovKick = true;
     public float baseFov = 60f;
-    public float fovKickAtSprint = 8f;      // +FOV au sprint
+    public float fovKickAtSprint = 8f;
     public float fovLerp = 8f;
 
     private Camera cam;
     private Vector3 defaultLocalPos;
     private float bobTimer;
     private float currentFov;
+
+    // === NOUVEAU : exposé pour audio ===
+    public float BobPhase01 { get; private set; }  // 0..1 (0 et 0.5 = impacts G/D)
+    public bool BobActive { get; private set; }  // moving & grounded & headbob on
 
     void Awake()
     {
@@ -44,29 +48,39 @@ public class FpsCameraEffects : MonoBehaviour
 
         // --- Headbob ---
         Vector3 targetOffset = Vector3.zero;
-        if (enableHeadbob && grounded && speed01 > 0.05f)
-        {
-            // Lerp des paramètres en fonction de la “vitesse normalisée”
-            float freq = Mathf.Lerp(bobFrequencyWalk, bobFrequencySprint, speed01);
-            float ampV = Mathf.Lerp(bobAmpWalk, bobAmpSprint, speed01);
-            float ampH = ampV * bobHorizontalScale;
+        float freq = Mathf.Lerp(bobFrequencyWalk, bobFrequencySprint, speed01);
+        float ampV = Mathf.Lerp(bobAmpWalk, bobAmpSprint, speed01);
+        float ampH = ampV * bobHorizontalScale;
 
+        BobActive = enableHeadbob && grounded && speed01 > 0.05f;
+
+        if (BobActive)
+        {
             bobTimer += Time.deltaTime * (Mathf.PI * 2f) * freq;
 
-            float bobY = Mathf.Sin(bobTimer) * ampV;                 // up/down
-            float bobX = Mathf.Sin(bobTimer * 0.5f) * ampH;          // léger side sway (demi fréquence)
+            float bobY = Mathf.Sin(bobTimer) * ampV;
+            float bobX = Mathf.Sin(bobTimer * 0.5f) * ampH;
 
             targetOffset = new Vector3(bobX, bobY, 0f);
+
+            // Phase normalisée 0..1
+            float twoPi = Mathf.PI * 2f;
+            float t = bobTimer % twoPi; if (t < 0f) t += twoPi;
+            BobPhase01 = t / twoPi; // 0.0 -> 1.0
+        }
+        else
+        {
+            // retour quand on ne bouge pas
+            BobPhase01 = 0f;
         }
 
-        // Retour doux vers 0 quand on s’arrête ou en l’air
         Vector3 targetLocalPos = defaultLocalPos + targetOffset;
         transform.localPosition = Vector3.Lerp(transform.localPosition, targetLocalPos, bobReturnLerp * Time.deltaTime);
 
         // --- FOV Kick ---
         if (enableFovKick)
         {
-            float targetFov = baseFov + (fovKickAtSprint * Mathf.Clamp01(speed01 * 1.1f)); // accentue au sprint
+            float targetFov = baseFov + (fovKickAtSprint * Mathf.Clamp01(speed01 * 1.1f));
             currentFov = Mathf.Lerp(currentFov, targetFov, fovLerp * Time.deltaTime);
             cam.fieldOfView = currentFov;
         }
