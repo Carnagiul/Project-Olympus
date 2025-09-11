@@ -109,9 +109,6 @@ public class FpsAudio : MonoBehaviour
         ApplyReverbMix(leftSource);
         ApplyReverbMix(rightSource);
         if (slideLoopSource) ApplyReverbMix(slideLoopSource);
-
-        if (cameraEffects == null)
-            cameraEffects = FindObjectOfType<FpsCameraEffects>();
     }
 
     AudioSource CreateChildSource(string name, Vector3 localPos, bool loop = false)
