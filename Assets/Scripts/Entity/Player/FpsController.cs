@@ -8,6 +8,10 @@ public class FpsController : MonoBehaviour
     [Header("Status (optional)")]
     [SerializeField] private TMP_Text statusText; // TextMeshPro ou TextMeshProUGUI
 
+    [Header("FpsAudio")]
+    private FpsAudio audioSfx;
+
+
     [Header("Move")]
     public float walkSpeed = 4.5f;
     public float sprintSpeed = 7.5f;
@@ -60,6 +64,8 @@ public class FpsController : MonoBehaviour
     void Awake()
     {
         cc = GetComponent<CharacterController>();
+        audioSfx = GetComponent<FpsAudio>();
+
         if (!enableCrouch) standHeight = cc.height;
 
         // Fallback pour status si rien n’est assigné
@@ -119,6 +125,8 @@ public class FpsController : MonoBehaviour
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
             isOnGround = false;
+            if (audioSfx != null) audioSfx.OnJump(); // <-- NOTIF DU SAUT
+
         }
 
         if (isOnGround)
