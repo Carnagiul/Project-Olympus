@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7508251897668013021}
   - component: {fileID: 7568256473072737914}
   - component: {fileID: 2814122766136235161}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: BaseWeapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -50,7 +50,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5133177168258198867}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -108,7 +108,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -126,14 +126,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::HitscanWeapon
   owner: {fileID: 0}
   aimCamera: {fileID: 0}
-  damage: 20
+  damage: 15
   damageType: 0
   cooldownSeconds: 0.25
-  range: 100
+  range: 50
   spreadDegrees: 0.5
   hittableLayers:
     serializedVersion: 2
-    m_Bits: 435
+    m_Bits: 179
   muzzleFlash: {fileID: 0}
   hitDecalPrefab: {fileID: 0}
   hitImpactVfxPrefab: {fileID: 0}

@@ -108,33 +108,53 @@ public class EntityController : MonoBehaviour
     /// <summary>Reçoit un DamageInfo et applique la mitigation, multipliers…</summary>
     public virtual void ApplyDamage(DamageInfo info)
     {
-        if (!IsAlive || info.amount <= 0f) return;
+        Debug.Log($"[ApplyDamage] Reçu : {info.amount} dmg | Type={info.damageType} | Crit={info.isCritical}");
+
+        if (!IsAlive || info.amount <= 0f)
+        {
+            Debug.Log("[ApplyDamage] Ignoré (cible morte ou dégâts nuls).");
+            return;
+        }
 
         // 1) Multiplicateur type vs armure
         float typeMult = GetTypeMultiplier(info.damageType, armorType);
+        Debug.Log($"[ApplyDamage] Multiplicateur type vs armure = {typeMult}");
 
-        // 2) Mitigation d’armure (formule lissée : armor / (armor + K))
-        // K fixe l’échelle : 100 → 50% à 100 d’armure, 200 → 33% etc.
+        // 2) Mitigation d’armure
         const float K = 100f;
         float armorMitigation = Mathf.Clamp01(armor / (armor + K));
+        Debug.Log($"[ApplyDamage] Armor={armor} | Mitigation={armorMitigation:P1}");
 
         // 3) Dégâts finaux
         float raw = info.amount * typeMult;
         float final = raw * (1f - armorMitigation);
-        if (info.isCritical) final *= 1.5f;
+        if (info.isCritical)
+        {
+            Debug.Log("[ApplyDamage] Coup critique appliqué (x1.5)");
+            final *= 1.5f;
+        }
+        Debug.Log($"[ApplyDamage] Raw={raw:0.0} | Final={final:0.0}");
 
         // 4) Applique
         float before = currentHealth;
         currentHealth = Mathf.Max(0f, currentHealth - final);
+        Debug.Log($"[ApplyDamage] Health {before:0.0} → {currentHealth:0.0} / {maxHealth}");
 
         OnDamaged.Invoke(final);
         OnHealthChanged.Invoke(currentHealth, maxHealth);
 
         if (currentHealth <= 0f)
+        {
+            Debug.Log("[ApplyDamage] Entity morte → Kill()");
             Kill();
+        }
         else
-            OnHit(info, final, before); // hook d’extension
+        {
+            Debug.Log("[ApplyDamage] Entity vivante → OnHit()");
+            OnHit(info, final, before);
+        }
     }
+
 
     // --- Tables de type : simple, claire, modifiable ---
     // >1 = efficace ; <1 = peu efficace ; 1 = neutre

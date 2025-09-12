@@ -27,13 +27,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2476839825018209336}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0.0030529387, y: -0.008580618, z: 0.008330357, w: 0.9999238}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0.06}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8362642071925986512}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0.358, y: -0.98, z: 0.952}
 --- !u!20 &2944528762463674856
 Camera:
   m_ObjectHideFlags: 0
@@ -247,7 +247,7 @@ GameObject:
   - component: {fileID: 7040366857160534089}
   - component: {fileID: 2618473117045608019}
   m_Layer: 7
-  m_Name: Monster 1
+  m_Name: Monster
   m_TagString: Monsters
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -362,10 +362,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MonsterController
   maxHealth: 100
-  armor: 5
-  armorType: 1
-  baseDamage: 15
-  damageType: 0
+  armor: 20
+  armorType: 2
+  baseDamage: 40
+  damageType: 4
   currentHealth: 0
   IsAlive: 1
   OnHealthChanged:
@@ -389,7 +389,7 @@ MonoBehaviour:
   repathInterval: 0.25
   stoppingDistance: 1.2
   sampleRadius: 2
-  attackRange: 1.5
+  attackRange: 10
   attackCooldown: 1
   attackDamage: 10
   attackDamageType: 0
@@ -425,68 +425,68 @@ PrefabInstance:
     m_TransformParent: {fileID: 8362642071925986512}
     m_Modifications:
     - target: {fileID: 2814122766136235161, guid: 57b033b23a8d8474ca3c54dc4be46494, type: 3}
-      propertyPath: range
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 2814122766136235161, guid: 57b033b23a8d8474ca3c54dc4be46494, type: 3}
-      propertyPath: damage
-      value: 200
-      objectReference: {fileID: 0}
+      propertyPath: owner
+      value: 
+      objectReference: {fileID: 7040366857160534089}
     - target: {fileID: 2814122766136235161, guid: 57b033b23a8d8474ca3c54dc4be46494, type: 3}
       propertyPath: aimCamera
       value: 
       objectReference: {fileID: 2944528762463674856}
-    - target: {fileID: 2814122766136235161, guid: 57b033b23a8d8474ca3c54dc4be46494, type: 3}
-      propertyPath: hittableLayers.m_Bits
-      value: 179
-      objectReference: {fileID: 0}
     - target: {fileID: 5133177168258198867, guid: 57b033b23a8d8474ca3c54dc4be46494, type: 3}
       propertyPath: m_Name
       value: BaseWeapon
       objectReference: {fileID: 0}
-    - target: {fileID: 5133177168258198867, guid: 57b033b23a8d8474ca3c54dc4be46494, type: 3}
-      propertyPath: m_Layer
-      value: 7
+    - target: {fileID: 8458041724113886964, guid: 57b033b23a8d8474ca3c54dc4be46494, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8458041724113886964, guid: 57b033b23a8d8474ca3c54dc4be46494, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8458041724113886964, guid: 57b033b23a8d8474ca3c54dc4be46494, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 8458041724113886964, guid: 57b033b23a8d8474ca3c54dc4be46494, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.14160919
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8458041724113886964, guid: 57b033b23a8d8474ca3c54dc4be46494, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.7666001
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8458041724113886964, guid: 57b033b23a8d8474ca3c54dc4be46494, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.39857483
-      objectReference: {fileID: 0}
-    - target: {fileID: 8458041724113886964, guid: 57b033b23a8d8474ca3c54dc4be46494, type: 3}
-      propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8458041724113886964, guid: 57b033b23a8d8474ca3c54dc4be46494, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9998097
+      objectReference: {fileID: 0}
+    - target: {fileID: 8458041724113886964, guid: 57b033b23a8d8474ca3c54dc4be46494, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: 0.017481718
       objectReference: {fileID: 0}
     - target: {fileID: 8458041724113886964, guid: 57b033b23a8d8474ca3c54dc4be46494, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0.008591134
       objectReference: {fileID: 0}
     - target: {fileID: 8458041724113886964, guid: 57b033b23a8d8474ca3c54dc4be46494, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0.0011096718
       objectReference: {fileID: 0}
     - target: {fileID: 8458041724113886964, guid: 57b033b23a8d8474ca3c54dc4be46494, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
+      value: 2.002
       objectReference: {fileID: 0}
     - target: {fileID: 8458041724113886964, guid: 57b033b23a8d8474ca3c54dc4be46494, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: -0.987
       objectReference: {fileID: 0}
     - target: {fileID: 8458041724113886964, guid: 57b033b23a8d8474ca3c54dc4be46494, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
+      value: -0.144
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

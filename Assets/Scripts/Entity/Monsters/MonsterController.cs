@@ -16,7 +16,7 @@ public class MonsterController : EntityController
     public float sampleRadius = 2.0f;          // tolérance pour snap au NavMesh
 
     [Header("Attack")]
-    public float attackRange = 1.5f;
+    public float attackRange = 15f;
     public float attackCooldown = 1.0f;
     public float attackDamage = 10f;
     public EntityDamageType attackDamageType = EntityDamageType.Kinetic;
@@ -81,12 +81,25 @@ public class MonsterController : EntityController
         }
 
         // Attaque
-        if (dist <= attackRange && Time.time >= nextAttackTime)
+        if (dist <= attackRange)
         {
-            nextAttackTime = Time.time + attackCooldown;
-            DealDamage(targetEntity, overrideAmount: attackDamage, overrideType: attackDamageType,
-                       hitPoint: target.position, hitNormal: Vector3.up);
-            // TODO: déclencher anim/sfx d’attaque ici si tu as un Animator/Audio
+            Debug.Log("L'entite " + this.name + " peut attaquer car dans la range");
+            if (Time.time >= nextAttackTime)
+            {
+                Debug.Log("L'entite " + this.name + " peut attaquer car timing OK");
+                nextAttackTime = Time.time + attackCooldown;
+                DealDamage(targetEntity, overrideAmount: attackDamage, overrideType: attackDamageType,
+                           hitPoint: target.position, hitNormal: Vector3.up);
+            }
+            else
+            {
+                Debug.Log("L'entite " + this.name + " ne peut attaquer car timing PAS OK");
+
+            }
+        }
+        else
+        {
+            Debug.Log("Distance trop elevee entre " + this.name + " et le Nexus... " + dist);
         }
     }
 

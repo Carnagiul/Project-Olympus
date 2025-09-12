@@ -2525,12 +2525,32 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 528080001662283440, guid: a42c21f0f5675a747bce5f6d22019c7d, type: 3}
-      propertyPath: spawnInterval
-      value: 1.2
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 528080001662283440, guid: a42c21f0f5675a747bce5f6d22019c7d, type: 3}
+      propertyPath: spawnPoint
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 528080001662283440, guid: a42c21f0f5675a747bce5f6d22019c7d, type: 3}
+      propertyPath: monsterFolder
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2156368899018599485, guid: a42c21f0f5675a747bce5f6d22019c7d, type: 3}
+      propertyPath: waves.Array.data[0].groups.Array.data[0].entries.Array.data[0].interval
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3171805272391767482, guid: a42c21f0f5675a747bce5f6d22019c7d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 3256514098970867944, guid: a42c21f0f5675a747bce5f6d22019c7d, type: 3}
       propertyPath: m_Name
       value: Portal
+      objectReference: {fileID: 0}
+    - target: {fileID: 3256514098970867944, guid: a42c21f0f5675a747bce5f6d22019c7d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7877343366593988653, guid: a42c21f0f5675a747bce5f6d22019c7d, type: 3}
       propertyPath: m_LocalPosition.x
