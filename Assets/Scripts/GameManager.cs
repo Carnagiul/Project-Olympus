@@ -1,17 +1,20 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem.XR;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
 
     [Header("Refs (optionnelles)")]
-    public FpsController player;          // tu peux l’assigner dans l’Inspector
     public Canvas gameOverCanvas;         // UI à afficher
     public bool pauseTimeOnGameOver = true;
 
     [Tooltip("Composants à désactiver au Game Over (si vide ? auto détection minimale)")]
     public List<Behaviour> disableOnGameOver = new();
+
+    [SerializeField]
+    private FpsController player;
 
     void Awake()
     {
@@ -19,6 +22,9 @@ public class GameManager : MonoBehaviour
         Instance = this;
 
         if (gameOverCanvas) gameOverCanvas.enabled = false;
+
+        if (!player)
+            player = FindFirstObjectByType<FpsController>();
     }
 
     public void GameOver(string reason = "")
@@ -47,9 +53,6 @@ public class GameManager : MonoBehaviour
 
     void AutoCollectOwnerBehaviours()
     {
-        if (!player) player = FindObjectOfType<FpsController>();
-        if (!player) return;
-
         // Minimal : désactive le contrôleur + caméra + audio
         var look = player.GetComponentInChildren<FpsLook>(true);
         var fx = player.GetComponentInChildren<FpsCameraEffects>(true);
