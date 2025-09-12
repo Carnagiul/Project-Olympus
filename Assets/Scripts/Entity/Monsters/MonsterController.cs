@@ -42,6 +42,7 @@ public class MonsterController : EntityController
             transform.position = hit.position;
 
         AcquireTarget();
+
     }
 
     void AcquireTarget()
@@ -83,23 +84,23 @@ public class MonsterController : EntityController
         // Attaque
         if (dist <= attackRange)
         {
-            Debug.Log("L'entite " + this.name + " peut attaquer car dans la range");
+            //Debug.Log("L'entite " + this.name + " peut attaquer car dans la range");
             if (Time.time >= nextAttackTime)
             {
-                Debug.Log("L'entite " + this.name + " peut attaquer car timing OK");
+                //Debug.Log("L'entite " + this.name + " peut attaquer car timing OK");
                 nextAttackTime = Time.time + attackCooldown;
                 DealDamage(targetEntity, overrideAmount: attackDamage, overrideType: attackDamageType,
                            hitPoint: target.position, hitNormal: Vector3.up);
             }
             else
             {
-                Debug.Log("L'entite " + this.name + " ne peut attaquer car timing PAS OK");
+                //Debug.Log("L'entite " + this.name + " ne peut attaquer car timing PAS OK");
 
             }
         }
         else
         {
-            Debug.Log("Distance trop elevee entre " + this.name + " et le Nexus... " + dist);
+            //Debug.Log("Distance trop elevee entre " + this.name + " et le Nexus... " + dist);
         }
     }
 

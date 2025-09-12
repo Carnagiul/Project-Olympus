@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -16,7 +16,7 @@ public class HitscanWeapon : MonoBehaviour
     public float range = 20f;
     [Range(0f, 10f)] public float spreadDegrees = 0.5f;
 
-    [Tooltip("Couches touchables. Excluez la couche Player pour plus de s�curit�.")]
+    [Tooltip("Couches touchables. Excluez la couche Player pour plus de sécurité.")]
     public LayerMask hittableLayers = ~0;
 
     [Header("FX (optional)")]
@@ -28,6 +28,15 @@ public class HitscanWeapon : MonoBehaviour
 
     [Header("Physics (optional)")]
     public float impactForce = 10f;
+
+    [Header("Laser / Tracer (optional)")]
+    public bool useLaser = true;
+    public Transform muzzle;                  // Optionnel : point de sortie. Si null → caméra.
+    public LineRenderer laserLine;            // Optionnel : si null, on l’instancie à l’Awake.
+    [Range(0.01f, 0.3f)] public float laserDuration = 0.06f;
+    [Range(0.001f, 0.05f)] public float laserStartWidth = 0.01f;
+    [Range(0.001f, 0.05f)] public float laserEndWidth = 0.002f;
+
 
     // --- Events & report ---
     public struct FireResult
@@ -49,6 +58,66 @@ public class HitscanWeapon : MonoBehaviour
 
     public bool CanFireNow => Time.time >= nextFireTime;
     public float CooldownRemaining => Mathf.Max(0f, nextFireTime - Time.time);
+
+    private Coroutine laserRoutine;
+
+    private void Awake()
+    {
+        // Création auto si non assigné (pratique pour tester rapidement)
+        if (useLaser && laserLine == null)
+        {
+            var go = new GameObject("LaserLine");
+            go.transform.SetParent(transform, false);
+            laserLine = go.AddComponent<LineRenderer>();
+            laserLine.enabled = false;
+            laserLine.useWorldSpace = true;
+            laserLine.positionCount = 2;
+            laserLine.startWidth = laserStartWidth;
+            laserLine.endWidth = laserEndWidth;
+
+            // Matériau simple par défaut (évite le rose si aucun mat n'est assigné)
+            var shader = Shader.Find("Sprites/Default");
+            if (shader != null) laserLine.material = new Material(shader);
+            // Couleur blanche par défaut (tu peux mettre un Gradient dans l’inspecteur)
+            laserLine.startColor = Color.white;
+            laserLine.endColor = Color.white;
+        }
+    }
+
+    private Vector3 GetMuzzlePosition()
+        => muzzle ? muzzle.position : aimCamera.transform.position;
+
+    private void DrawLaser(Vector3 start, Vector3 end)
+    {
+        if (!useLaser || laserLine == null) return;
+        if (laserRoutine != null) StopCoroutine(laserRoutine);
+        laserRoutine = StartCoroutine(LaserRoutine(start, end));
+    }
+
+    private System.Collections.IEnumerator LaserRoutine(Vector3 start, Vector3 end)
+    {
+        laserLine.enabled = true;
+        laserLine.positionCount = 2;
+        laserLine.startWidth = laserStartWidth;
+        laserLine.endWidth = laserEndWidth;
+
+        laserLine.SetPosition(0, start);
+        laserLine.SetPosition(1, end);
+
+        float t = 0f;
+        // Petit fondu en réduisant l’épaisseur
+        while (t < laserDuration)
+        {
+            t += Time.deltaTime;
+            float k = 1f - (t / laserDuration);
+            laserLine.startWidth = laserStartWidth * k;
+            laserLine.endWidth = laserEndWidth * k;
+            yield return null;
+        }
+
+        laserLine.enabled = false;
+    }
+
 
     public bool WantsToFire()
     {
@@ -79,6 +148,9 @@ public class HitscanWeapon : MonoBehaviour
         Vector3 origin = aimCamera.transform.position;
         Vector3 dir = GetSpreadDirection(aimCamera.transform.forward, spreadDegrees);
 
+        // NEW: point de départ visuel (si tu as un muzzle, on part du muzzle)
+        Vector3 visualStart = GetMuzzlePosition();
+
         result.fired = true;
         result.damageApplied = damage;
 
@@ -88,10 +160,10 @@ public class HitscanWeapon : MonoBehaviour
             result.point = hit.point;
             result.normal = hit.normal;
 
-            // --- Trouver l'entit� touch�e (dans le collider ou ses parents)
+            // --- Trouver l'entité touchée (dans le collider ou ses parents)
             EntityController target = hit.collider.GetComponentInParent<EntityController>();
 
-            // --- Conditions: ne pas se tirer soi-m�me, et n'appliquer d�g�ts que si tag == "Monster"
+            // --- Conditions: ne pas se tirer soi-même, et n'appliquer dégâts que si tag == "Monster"
             bool isSelf = target != null && ReferenceEquals(target, owner);
             bool isMonster = target != null && target.CompareTag("Monsters");
 
@@ -103,11 +175,13 @@ public class HitscanWeapon : MonoBehaviour
                     overrideType: damageType,
                     hitPoint: hit.point,
                     hitNormal: hit.normal);
+                
+
             }
 
-            // Optionnel: petite pouss�e physique (m�me si pas Monster, juste impact)
-            if (impactForce > 0f && hit.rigidbody)
-                hit.rigidbody.AddForceAtPosition(dir * impactForce, hit.point, ForceMode.Impulse);
+            // Optionnel: petite poussée physique (même si pas Monster, juste impact)
+            //if (impactForce > 0f && hit.rigidbody)
+            //   hit.rigidbody.AddForceAtPosition(dir * impactForce, hit.point, ForceMode.Impulse);
 
             // Impacts visuels
             if (hitImpactVfxPrefab)
@@ -123,13 +197,25 @@ public class HitscanWeapon : MonoBehaviour
             }
 
             Fired?.Invoke(result);
-            if (!isSelf && isMonster) Hit?.Invoke(result);
-            else Miss?.Invoke(result); // on a touch� qqch, mais pas un Monster valable
+            if (!isSelf && isMonster)
+            {
+                Hit?.Invoke(result);
+                DrawLaser(visualStart, hit.point);
+
+            }
+            else
+            {
+                Vector3 visualEnd = origin + dir * range;
+                DrawLaser(visualStart, visualEnd);
+                Miss?.Invoke(result);
+            } // on a touché qqch, mais pas un Monster valable
         }
         else
         {
             Fired?.Invoke(result);
             Miss?.Invoke(result);
+            Vector3 visualEnd = origin + dir * range;
+            DrawLaser(visualStart, visualEnd);
         }
 
         result.cooldownRemaining = CooldownRemaining;

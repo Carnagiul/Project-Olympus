@@ -58,6 +58,12 @@ public class EntityController : MonoBehaviour
     [Tooltip("Composants à désactiver pendant le délai (si laissés vides, on essaie d’auto-détecter)")]
     public Behaviour[] disableDuringRespawn;
 
+    [Header("Pricing")]
+    [SerializeField] private int GoldPrice = 0;
+    [SerializeField] private int GoldDrop = 0;
+
+
+
     // --- Cycle ---
     protected virtual void Awake()
     {
