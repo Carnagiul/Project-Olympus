@@ -7,8 +7,9 @@ public class FpsController : EntityController
 {
     public enum PivotMode { Feet, Center }
 
-    [Header("Status (optional)")]
+    [Header("Canvas")]
     [SerializeField] private TMP_Text statusText; // TextMeshPro ou TextMeshProUGUI
+    [SerializeField] private TMP_Text goldText; // TextMeshPro ou TextMeshProUGUI
 
     [Header("Capsule/Pivot")]
     public PivotMode pivotMode = PivotMode.Feet; // Choisis selon ton pivot objet
@@ -211,6 +212,12 @@ public class FpsController : EntityController
                 $"Speed: {lastMoveXZ.magnitude:0.00} m/s\n" +
                 $"VelY: {velocity.y:0.00}\n" +
                 $"Pivot: {pivotMode}";
+        }
+
+        if (goldText != null)
+        {
+            goldText.text =
+                $"Gold : {GoldWallet}";
         }
 
         // Dans Update() de FpsController (tout en bas)

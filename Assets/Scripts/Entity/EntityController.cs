@@ -59,8 +59,9 @@ public class EntityController : MonoBehaviour
     public Behaviour[] disableDuringRespawn;
 
     [Header("Pricing")]
-    [SerializeField] private int GoldPrice = 0;
-    [SerializeField] private int GoldDrop = 0;
+    [SerializeField] public int GoldPrice = 0;
+    [SerializeField] public int GoldDrop = 0;
+    [SerializeField] public int GoldWallet = 0;
 
 
 
