@@ -19,7 +19,7 @@ public class MonsterController : EntityController
     public float attackRange = 15f;
     public float attackCooldown = 1.0f;
     public float attackDamage = 10f;
-    public EntityDamageType attackDamageType = EntityDamageType.Kinetic;
+    public DamageType attackType = DamageType.Kinetic;
 
     [Header("Death FX")]
     public GameObject deathFxPrefab;
@@ -32,17 +32,19 @@ public class MonsterController : EntityController
     protected override void Awake()
     {
         base.Awake();
+
         agent = GetComponent<NavMeshAgent>();
-        agent.stoppingDistance = Mathf.Max(stoppingDistance, attackRange * 0.9f);
         agent.updateRotation = true;
         agent.updateUpAxis = true;
+
+        // StoppingDistance cohérent avec la portée d'attaque
+        agent.stoppingDistance = Mathf.Max(stoppingDistance, attackRange * 0.9f);
 
         // Snap au NavMesh si nécessaire (évite les agents "off mesh" au spawn)
         if (NavMesh.SamplePosition(transform.position, out var hit, sampleRadius, NavMesh.AllAreas))
             transform.position = hit.position;
 
         AcquireTarget();
-
     }
 
     void AcquireTarget()
@@ -65,7 +67,7 @@ public class MonsterController : EntityController
 
         float dist = Vector3.Distance(transform.position, target.position);
 
-        // Déplacement par NavMesh (pas de fallback)
+        // Déplacement par NavMesh
         if (dist > attackRange && Time.time >= nextPathTime && agent.isOnNavMesh)
         {
             agent.stoppingDistance = Mathf.Max(stoppingDistance, attackRange * 0.9f);
@@ -76,7 +78,8 @@ public class MonsterController : EntityController
         // Regarder la cible quand on est proche
         if (dist <= Mathf.Max(attackRange * 1.5f, 3f))
         {
-            Vector3 look = target.position - transform.position; look.y = 0f;
+            Vector3 look = target.position - transform.position;
+            look.y = 0f;
             if (look.sqrMagnitude > 0.01f)
                 transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(look), 10f * Time.deltaTime);
         }
@@ -84,23 +87,19 @@ public class MonsterController : EntityController
         // Attaque
         if (dist <= attackRange)
         {
-            //Debug.Log("L'entite " + this.name + " peut attaquer car dans la range");
             if (Time.time >= nextAttackTime)
             {
-                //Debug.Log("L'entite " + this.name + " peut attaquer car timing OK");
                 nextAttackTime = Time.time + attackCooldown;
-                DealDamage(targetEntity, overrideAmount: attackDamage, overrideType: attackDamageType,
-                           hitPoint: target.position, hitNormal: Vector3.up);
-            }
-            else
-            {
-                //Debug.Log("L'entite " + this.name + " ne peut attaquer car timing PAS OK");
 
+                // >>> Nouvelle API DealDamage(target, amount, DamageType, ...)
+                DealDamage(
+                    targetEntity,
+                    attackDamage,
+                    attackType,
+                    hitPoint: target.position,
+                    hitNormal: Vector3.up
+                );
             }
-        }
-        else
-        {
-            //Debug.Log("Distance trop elevee entre " + this.name + " et le Nexus... " + dist);
         }
     }
 

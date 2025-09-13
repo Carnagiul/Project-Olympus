@@ -11,7 +11,7 @@ public class HitscanWeapon : MonoBehaviour
 
     [Header("Fire")]
     public float damage = 20f;
-    public EntityController.EntityDamageType damageType = EntityController.EntityDamageType.Kinetic;
+    public DamageType damageType = DamageType.Kinetic;   // ← enum global
     public float cooldownSeconds = 0.25f;
     public float range = 20f;
     [Range(0f, 10f)] public float spreadDegrees = 0.5f;
@@ -36,7 +36,6 @@ public class HitscanWeapon : MonoBehaviour
     [Range(0.01f, 0.3f)] public float laserDuration = 0.06f;
     [Range(0.001f, 0.05f)] public float laserStartWidth = 0.01f;
     [Range(0.001f, 0.05f)] public float laserEndWidth = 0.002f;
-
 
     // --- Events & report ---
     public struct FireResult
@@ -118,7 +117,6 @@ public class HitscanWeapon : MonoBehaviour
         laserLine.enabled = false;
     }
 
-
     public bool WantsToFire()
     {
         var mouse = Mouse.current;
@@ -163,25 +161,23 @@ public class HitscanWeapon : MonoBehaviour
             // --- Trouver l'entité touchée (dans le collider ou ses parents)
             EntityController target = hit.collider.GetComponentInParent<EntityController>();
 
-            // --- Conditions: ne pas se tirer soi-même, et n'appliquer dégâts que si tag == "Monster"
+            // --- Conditions: ne pas se tirer soi-même, et n'appliquer dégâts que si tag == "Monsters"
             bool isSelf = target != null && ReferenceEquals(target, owner);
             bool isMonster = target != null && target.CompareTag("Monsters");
 
             if (!isSelf && isMonster)
             {
                 result.target = target;
-                owner.DealDamage(target,
-                    overrideAmount: damage,
-                    overrideType: damageType,
+
+                // Nouvelle API DealDamage(target, amount, DamageType, ...)
+                owner.DealDamage(
+                    target,
+                    damage,
+                    damageType,
                     hitPoint: hit.point,
-                    hitNormal: hit.normal);
-                
-
+                    hitNormal: hit.normal
+                );
             }
-
-            // Optionnel: petite poussée physique (même si pas Monster, juste impact)
-            //if (impactForce > 0f && hit.rigidbody)
-            //   hit.rigidbody.AddForceAtPosition(dir * impactForce, hit.point, ForceMode.Impulse);
 
             // Impacts visuels
             if (hitImpactVfxPrefab)
@@ -201,14 +197,13 @@ public class HitscanWeapon : MonoBehaviour
             {
                 Hit?.Invoke(result);
                 DrawLaser(visualStart, hit.point);
-
             }
             else
             {
                 Vector3 visualEnd = origin + dir * range;
                 DrawLaser(visualStart, visualEnd);
                 Miss?.Invoke(result);
-            } // on a touché qqch, mais pas un Monster valable
+            }
         }
         else
         {

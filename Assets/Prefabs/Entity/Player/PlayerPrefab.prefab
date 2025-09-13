@@ -12,6 +12,13 @@ GameObject:
   - component: {fileID: 1207186564056622218}
   - component: {fileID: 6745363639487616826}
   - component: {fileID: 5397225455294331478}
+  - component: {fileID: 1761431243490986745}
+  - component: {fileID: 4064115033359388707}
+  - component: {fileID: 1282724900421565039}
+  - component: {fileID: 4566536938194051558}
+  - component: {fileID: 8756816188163955848}
+  - component: {fileID: 8539528749831651000}
+  - component: {fileID: 5848334868417724106}
   m_Layer: 7
   m_Name: PlayerPrefab
   m_TagString: Player
@@ -87,23 +94,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2bc67414798bec244b88f8235887f649, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FpsController
-  maxHealth: 100
-  armor: 0
-  armorType: 0
-  baseDamage: 15
-  damageType: 0
-  currentHealth: 0
-  IsAlive: 1
   OnHealthChanged:
     m_PersistentCalls:
       m_Calls: []
-  OnDamaged:
-    m_PersistentCalls:
-      m_Calls: []
-  OnHealed:
-    m_PersistentCalls:
-      m_Calls: []
   OnDeath:
+    m_PersistentCalls:
+      m_Calls: []
+  OnKilledBy:
     m_PersistentCalls:
       m_Calls: []
   respawnPosition: {x: 1, y: 3, z: 1}
@@ -112,7 +109,6 @@ MonoBehaviour:
   disableDuringRespawn: []
   GoldPrice: 0
   GoldDrop: 0
-  GoldWallet: 0
   statusText: {fileID: 1462916304311661925}
   goldText: {fileID: 5999523251341066358}
   pivotMode: 0
@@ -138,8 +134,9 @@ MonoBehaviour:
   stepOffsetSnap: 0.1
   ceilingProbeRadius: 0.26
   ceilingCheckDistance: 0.15
-  equippedWeapon: {fileID: 0}
-  playerCamera: {fileID: 0}
+  equippedWeapon: {fileID: 5848334868417724106}
+  playerCamera: {fileID: 1224660593960158096}
+  goldWallet: {fileID: 1761431243490986745}
 --- !u!143 &5397225455294331478
 CharacterController:
   m_ObjectHideFlags: 0
@@ -165,6 +162,153 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0.7, z: 0}
+--- !u!114 &1761431243490986745
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2853561736591031515}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7610d6a1d9627c442825fb2f11daf524, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GoldWallet
+  gold: 0
+  OnGoldChanged:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &4064115033359388707
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2853561736591031515}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 004e9f522e47c0046be130a9ce9f856c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EntityStats
+  preset: {fileID: 11400000, guid: 0db598b23f3a3d947a0cfa0ad01c8075, type: 2}
+  damageMultiplier: 1
+  armorBonus: 0
+--- !u!114 &1282724900421565039
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2853561736591031515}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a97bfb74567605d49bd0aa068c6be33b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Health
+  maxHealth: 100
+  currentHealth: -1
+  OnHealthChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDamaged:
+    m_PersistentCalls:
+      m_Calls: []
+  OnHealed:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDeath:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &4566536938194051558
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2853561736591031515}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70347a6a5307b524d921253a1d138d52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DamageReceiver
+  health: {fileID: 1282724900421565039}
+  stats: {fileID: 4064115033359388707}
+  armorK: 100
+  lastDamager: {fileID: 0}
+  lastHitTime: 0
+--- !u!114 &8756816188163955848
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2853561736591031515}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02ecbfb9fc2eaa24cb34e712af7b8a11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerCombatEvents
+  player: {fileID: 0}
+  weapon: {fileID: 0}
+  hitmarker: {fileID: 0}
+  damageTextSpawner: {fileID: 0}
+  sfx: {fileID: 0}
+  hitClip: {fileID: 0}
+  missClip: {fileID: 0}
+  cooldownClip: {fileID: 0}
+--- !u!114 &8539528749831651000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2853561736591031515}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b45136b942ee6034aa404ce732b3d5b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AimHoverDetector
+  cam: {fileID: 0}
+  player: {fileID: 0}
+  maxCheckDistance: 100
+  mask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  enemyTag: Monsters
+--- !u!114 &5848334868417724106
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2853561736591031515}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16cb3af34dd73f24684eb5c4c21889f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HitscanWeapon
+  owner: {fileID: 6745363639487616826}
+  aimCamera: {fileID: 1224660593960158096}
+  damage: 15
+  damageType: 0
+  cooldownSeconds: 0.25
+  range: 60
+  spreadDegrees: 0.5
+  hittableLayers:
+    serializedVersion: 2
+    m_Bits: 435
+  muzzleFlash: {fileID: 0}
+  hitDecalPrefab: {fileID: 0}
+  hitImpactVfxPrefab: {fileID: 0}
+  audioSource: {fileID: 0}
+  fireClip: {fileID: 0}
+  impactForce: 10
+  useLaser: 1
+  muzzle: {fileID: 0}
+  laserLine: {fileID: 0}
+  laserDuration: 0.06
+  laserStartWidth: 0.01
+  laserEndWidth: 0.002
 --- !u!1 &5109994374840529246
 GameObject:
   m_ObjectHideFlags: 0
@@ -846,6 +990,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 5133177168258198867, guid: 57b033b23a8d8474ca3c54dc4be46494, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8458041724113886964, guid: 57b033b23a8d8474ca3c54dc4be46494, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.3
@@ -898,7 +1046,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2814122766136235161, guid: 57b033b23a8d8474ca3c54dc4be46494, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

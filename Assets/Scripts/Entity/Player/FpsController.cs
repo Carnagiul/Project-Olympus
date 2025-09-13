@@ -9,7 +9,7 @@ public class FpsController : EntityController
 
     [Header("Canvas")]
     [SerializeField] private TMP_Text statusText; // TextMeshPro ou TextMeshProUGUI
-    [SerializeField] private TMP_Text goldText; // TextMeshPro ou TextMeshProUGUI
+    [SerializeField] private TMP_Text goldText;   // TextMeshPro ou TextMeshProUGUI
 
     [Header("Capsule/Pivot")]
     public PivotMode pivotMode = PivotMode.Feet; // Choisis selon ton pivot objet
@@ -66,14 +66,16 @@ public class FpsController : EntityController
     public HitscanWeapon equippedWeapon;
     public Camera playerCamera; // ta caméra FPS (souvent Main Camera)
 
+    [Header("Gold")]
+    [SerializeField] private GoldWallet goldWallet; // composant portefeuille d’or
+
     // Exposés pour la caméra (headbob/FOV)
     public float CurrentPlanarSpeed01 { get; private set; } // 0..1 par rapport au sprint
     public bool IsGroundedForCamera => isOnGround;
 
     protected override void Awake()
     {
-
-        base.Awake(); 
+        base.Awake();
 
         cc = GetComponent<CharacterController>();
         if (!enableCrouch) standHeight = cc.height;
@@ -85,6 +87,10 @@ public class FpsController : EntityController
             if (go != null) statusText = go.GetComponent<TMP_Text>();
         }
 
+        // Grab auto du GoldWallet si non assigné
+        if (goldWallet == null)
+            goldWallet = GetComponent<GoldWallet>();
+
         audioSfx = GetComponent<FpsAudio>();
 
         if (equippedWeapon != null)
@@ -92,6 +98,29 @@ public class FpsController : EntityController
             if (equippedWeapon.owner == null) equippedWeapon.owner = this;
             if (equippedWeapon.aimCamera == null) equippedWeapon.aimCamera = playerCamera;
         }
+    }
+
+    private void Start()
+    {
+        // Abonnement UI Or
+        if (goldWallet != null)
+        {
+            goldWallet.OnGoldChanged.AddListener(OnGoldChanged);
+            // push initial
+            OnGoldChanged(goldWallet.Amount);
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (goldWallet != null)
+            goldWallet.OnGoldChanged.RemoveListener(OnGoldChanged);
+    }
+
+    private void OnGoldChanged(int amount)
+    {
+        if (goldText != null)
+            goldText.text = $"Gold : {amount}";
     }
 
     void Update()
@@ -214,32 +243,22 @@ public class FpsController : EntityController
                 $"Pivot: {pivotMode}";
         }
 
-        if (goldText != null)
-        {
-            goldText.text =
-                $"Gold : {GoldWallet}";
-        }
-
-        // Dans Update() de FpsController (tout en bas)
+        // Tir (via HitscanWeapon)
         if (equippedWeapon != null && equippedWeapon.WantsToFire())
         {
             if (equippedWeapon.TryFire(out HitscanWeapon.FireResult shot))
             {
                 if (shot.hit)
                 {
-                    // On a touché : shot.target (peut être null si collider sans EntityController)
-                    // Exemple: afficher un hit marker, logger, etc.
                     Debug.Log($"HIT {shot.target?.name} à {shot.point} pour {shot.damageApplied} dmg");
                 }
                 else
                 {
-                    // Tir parti mais raté
                     Debug.Log("Miss");
                 }
             }
             else
             {
-                // Bloqué par cooldown (ou refs manquantes) → shot.cooldownRemaining dispo
                 Debug.Log($"Cooldown… {equippedWeapon.CooldownRemaining:0.00}s");
             }
         }
@@ -344,5 +363,4 @@ public class FpsController : EntityController
         Gizmos.color = Color.cyan;
         Gizmos.DrawRay(GetFeet(), groundNormal.normalized * 0.8f);
     }
-
 }
