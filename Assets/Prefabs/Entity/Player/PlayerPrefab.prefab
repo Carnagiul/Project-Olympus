@@ -9,6 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8362642071925986512}
+  - component: {fileID: 1207186564056622218}
+  - component: {fileID: 6745363639487616826}
+  - component: {fileID: 5397225455294331478}
   m_Layer: 7
   m_Name: PlayerPrefab
   m_TagString: Player
@@ -35,6 +38,131 @@ Transform:
   - {fileID: 8342466025657278062}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1207186564056622218
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2853561736591031515}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c089718116687fb48afe846fdfdda2ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FpsAudio
+  cameraEffects: {fileID: 928660627550802506}
+  minStepIntervalSeconds: 0.5
+  sprintIntervalMultiplier: 0.6
+  crouchIntervalMultiplier: 1.4
+  leftSource: {fileID: 0}
+  rightSource: {fileID: 0}
+  footstepDefault:
+  - {fileID: 8300000, guid: d3f70f2b56508214eb60159d689f22c9, type: 3}
+  - {fileID: 8300000, guid: 5aef2c04731828b488e79a43b3066b86, type: 3}
+  surfaceSets: []
+  jumpClip: {fileID: 0}
+  landLightClip: {fileID: 0}
+  landHardClip: {fileID: 0}
+  slideLoopClip: {fileID: 0}
+  baseFootstepVolume: 0.8
+  footstepPitchJitter: 0.06
+  hardLandVelY: -10
+  minMoveSpeed: 0.2
+  groundLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  raycastDown: 0.6
+  reverbZoneMix: 1
+  footOffsetX: 0.18
+  footOffsetY: 0
+--- !u!114 &6745363639487616826
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2853561736591031515}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bc67414798bec244b88f8235887f649, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FpsController
+  maxHealth: 100
+  armor: 0
+  armorType: 0
+  baseDamage: 15
+  damageType: 0
+  currentHealth: 0
+  IsAlive: 1
+  OnHealthChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDamaged:
+    m_PersistentCalls:
+      m_Calls: []
+  OnHealed:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDeath:
+    m_PersistentCalls:
+      m_Calls: []
+  respawnPosition: {x: 1, y: 3, z: 1}
+  respawnDelaySeconds: 3
+  hideRenderersDuringRespawn: 1
+  disableDuringRespawn: []
+  GoldPrice: 0
+  GoldDrop: 0
+  statusText: {fileID: 0}
+  pivotMode: 0
+  walkSpeed: 4.5
+  sprintSpeed: 7.5
+  crouchSpeed: 2.5
+  acceleration: 12
+  airControl: 0.5
+  jumpHeight: 1.6
+  gravity: -13
+  groundedStick: -2
+  enableCrouch: 1
+  crouchHeight: 1
+  standHeight: 1.8
+  crouchLerp: 12
+  groundLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  groundCheckDistance: 0.3
+  maxSnapSpeed: 6
+  maxSlopeAngle: 50
+  slopeSlideGravity: 20
+  stepOffsetSnap: 0.1
+  ceilingProbeRadius: 0.26
+  ceilingCheckDistance: 0.15
+  equippedWeapon: {fileID: 0}
+  playerCamera: {fileID: 0}
+--- !u!143 &5397225455294331478
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2853561736591031515}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Height: 2
+  m_Radius: 0.5
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!1 &5912124009432443476
 GameObject:
   m_ObjectHideFlags: 0
@@ -285,6 +413,8 @@ GameObject:
   - component: {fileID: 1224660593960158096}
   - component: {fileID: 7703582037260067821}
   - component: {fileID: 5376493590449149999}
+  - component: {fileID: 928660627550802506}
+  - component: {fileID: 6506386535648330753}
   m_Layer: 7
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -301,7 +431,7 @@ Transform:
   m_GameObject: {fileID: 8776643467726023247}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.23, z: 0}
+  m_LocalPosition: {x: 0, y: 0.8, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -505,6 +635,46 @@ MonoBehaviour:
       enableFptlForForwardOpaque: 0
       enableBigTilePrepass: 0
       isFptlEnabled: 0
+--- !u!114 &928660627550802506
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8776643467726023247}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75d9a075b59ffcb4d8e5801c9bf1063a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FpsCameraEffects
+  controller: {fileID: 0}
+  enableHeadbob: 1
+  bobFrequencyWalk: 1.8
+  bobFrequencySprint: 2.6
+  bobAmpWalk: 0.03
+  bobAmpSprint: 0.06
+  bobHorizontalScale: 0.5
+  bobReturnLerp: 8
+  enableFovKick: 1
+  baseFov: 60
+  fovKickAtSprint: 8
+  fovLerp: 8
+--- !u!114 &6506386535648330753
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8776643467726023247}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20ba17aba1ffa86408b6029d61cd7c33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FpsLook
+  mouseSensitivity: 0.15
+  pitchMin: -85
+  pitchMax: 85
+  playerBody: {fileID: 8362642071925986512}
 --- !u!1001 &479462406778290330
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -513,6 +683,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8362642071925986512}
     m_Modifications:
+    - target: {fileID: 2814122766136235161, guid: 57b033b23a8d8474ca3c54dc4be46494, type: 3}
+      propertyPath: range
+      value: 60
+      objectReference: {fileID: 0}
     - target: {fileID: 2814122766136235161, guid: 57b033b23a8d8474ca3c54dc4be46494, type: 3}
       propertyPath: aimCamera
       value: 
@@ -943,7 +1117,7 @@ CharacterController:
     m_Bits: 0
   m_LayerOverridePriority: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Height: 1.2
   m_Radius: 0.3
@@ -959,7 +1133,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1737637482188782186}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2bc67414798bec244b88f8235887f649, type: 3}
   m_Name: 
