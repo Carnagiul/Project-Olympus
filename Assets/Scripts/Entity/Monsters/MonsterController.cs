@@ -11,15 +11,9 @@ public class MonsterController : EntityController
     public string nexusTag = "Nexus";
 
     [Header("Movement")]
-    public float repathInterval = 0.25f;       // temps entre 2 SetDestination
-    public float stoppingDistance = 1.2f;      // cohérent avec attackRange
-    public float sampleRadius = 2.0f;          // tolérance pour snap au NavMesh
-
-    [Header("Attack")]
-    public float attackRange = 15f;
-    public float attackCooldown = 1.0f;
-    public float attackDamage = 10f;
-    public DamageType attackType = DamageType.Kinetic;
+    public float repathInterval = 0.25f;  // temps entre 2 SetDestination
+    public float stoppingDistance = 1.2f; // cohérent avec AttackRange
+    public float sampleRadius = 2.0f;     // tolérance pour snap au NavMesh
 
     [Header("Death FX")]
     public GameObject deathFxPrefab;
@@ -37,8 +31,8 @@ public class MonsterController : EntityController
         agent.updateRotation = true;
         agent.updateUpAxis = true;
 
-        // StoppingDistance cohérent avec la portée d'attaque
-        agent.stoppingDistance = Mathf.Max(stoppingDistance, attackRange * 0.9f);
+        // StoppingDistance cohérent avec la portée d'attaque (via Stats/EntityController proxy)
+        agent.stoppingDistance = Mathf.Max(stoppingDistance, AttackRange * 0.9f);
 
         // Snap au NavMesh si nécessaire (évite les agents "off mesh" au spawn)
         if (NavMesh.SamplePosition(transform.position, out var hit, sampleRadius, NavMesh.AllAreas))
@@ -68,34 +62,32 @@ public class MonsterController : EntityController
         float dist = Vector3.Distance(transform.position, target.position);
 
         // Déplacement par NavMesh
-        if (dist > attackRange && Time.time >= nextPathTime && agent.isOnNavMesh)
+        if (dist > AttackRange && Time.time >= nextPathTime && agent.isOnNavMesh)
         {
-            agent.stoppingDistance = Mathf.Max(stoppingDistance, attackRange * 0.9f);
+            agent.stoppingDistance = Mathf.Max(stoppingDistance, AttackRange * 0.9f);
             agent.SetDestination(target.position);
             nextPathTime = Time.time + repathInterval;
         }
 
         // Regarder la cible quand on est proche
-        if (dist <= Mathf.Max(attackRange * 1.5f, 3f))
+        if (dist <= Mathf.Max(AttackRange * 1.5f, 3f))
         {
-            Vector3 look = target.position - transform.position;
-            look.y = 0f;
+            Vector3 look = target.position - transform.position; look.y = 0f;
             if (look.sqrMagnitude > 0.01f)
                 transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(look), 10f * Time.deltaTime);
         }
 
-        // Attaque
-        if (dist <= attackRange)
+        // Attaque (valeurs via proxys : AttackCooldown / DamageEffective / DamageType)
+        if (dist <= AttackRange)
         {
             if (Time.time >= nextAttackTime)
             {
-                nextAttackTime = Time.time + attackCooldown;
+                nextAttackTime = Time.time + AttackCooldown;
 
-                // >>> Nouvelle API DealDamage(target, amount, DamageType, ...)
                 DealDamage(
                     targetEntity,
-                    attackDamage,
-                    attackType,
+                    DamageEffective,
+                    DamageType,
                     hitPoint: target.position,
                     hitNormal: Vector3.up
                 );
@@ -115,7 +107,7 @@ public class MonsterController : EntityController
 
     void OnDrawGizmosSelected()
     {
-        Gizmos.color = Color.red; Gizmos.DrawWireSphere(transform.position, attackRange);
-        Gizmos.color = Color.yellow; Gizmos.DrawWireSphere(transform.position, stoppingDistance);
+        Gizmos.color = Color.red; Gizmos.DrawWireSphere(transform.position, AttackRange);
+        Gizmos.color = Color.yellow; Gizmos.DrawWireSphere(transform.position, Mathf.Max(stoppingDistance, AttackRange * 0.9f));
     }
 }

@@ -15,5 +15,5 @@ MonoBehaviour:
   maxHealth: 25
   armor: 1
   armorType: 1
-  baseDamage: 5
+  baseDamage: 20
   damageType: 0

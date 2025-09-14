@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: NexusStats
   m_EditorClassIdentifier: Assembly-CSharp::EntityStatsAsset
   maxHealth: 5000
-  armor: 2000
+  armor: 200
   armorType: 4
   baseDamage: 15
   damageType: 0
+  attackRange: 0
+  attackCooldown: 0
+  projectileSpeed: 0

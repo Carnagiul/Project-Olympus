@@ -32,9 +32,19 @@ public class EntityController : MonoBehaviour
     public int GoldPrice = 0;
     public int GoldDrop = 0;
 
+    // ---- Proxies Health
     public bool IsAlive => Health != null && Health.IsAlive;
     public float CurrentHealth => Health ? Health.Current : 0f;
     public float MaxHealth => Health ? Health.Max : 0f;
+
+    // ---- NEW: Proxies Stats (range / cadence / projectiles / dégâts)
+    public float AttackRange => Stats ? Stats.AttackRangeEff : 10f;   // depuis EntityStats
+    public float AttackCooldown => Stats ? Stats.AttackCooldownEff : 1f;    // idem
+    public float ProjectileSpeed => Stats ? Stats.ProjectileSpeedEff : 0f;    // 0 = hitscan
+    public float DamageBase => Stats ? Stats.BaseDamage : 15f;
+    public float DamageEffective => Stats ? Stats.DamageEff : DamageBase;
+    public ArmorType ArmorType => Stats ? (ArmorType)(int)Stats.ArmorType : ArmorType.None;
+    public DamageType DamageType => Stats ? (DamageType)(int)Stats.DamageType : DamageType.Kinetic;
 
     protected virtual void Awake()
     {
