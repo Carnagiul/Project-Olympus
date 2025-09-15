@@ -1,190 +1,156 @@
 using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
 
 public class PortalSpawner : MonoBehaviour
 {
-    public enum SpawnMode { Single, Sequential, Random, Weighted }
-
     [Header("Spawn Settings")]
-    [SerializeField] private float spawnInterval = 5f;
+    [SerializeField] private GameObject monsterPrefab;
+    [SerializeField, Min(0f)] private float spawnInterval = 5f;
     [SerializeField] private int maxSpawn = -1; // -1 = illimité
     [SerializeField] private Transform spawnPoint;
-
-    [Header("Hierarchy")]
     [SerializeField] private Transform monsterFolder;
-    [SerializeField] private string autoFolderName = "Monsters";
 
-    [Header("Selection Mode")]
-    [SerializeField] private SpawnMode spawnMode = SpawnMode.Single;
-    [SerializeField] private GameObject monsterPrefab;          // Single
-    [SerializeField] private List<GameObject> prefabs;          // Sequential/Random
-    [SerializeField] private List<WeightedEntry> weightedPrefabs; // Weighted
+    [Header("Activation")]
+    [Tooltip("Permet d'activer/désactiver le spawn à la volée.")]
+    public bool isActive = true;
 
-    [Header("Runtime Control")]
-    [SerializeField] private bool startEnabled = true;          // état initial
-    [SerializeField] private bool autoDisableOnMax = true;      // coupe après maxSpawn atteint
-    [SerializeField] private bool spawnEnabled = true;
-    [SerializeField] private GameObject[] visualsToToggle;      // optionnel: FX/mesh à cacher quand off
+    [Header("Giant Unit Settings (V2)")]
+    [Tooltip("Active la possibilité de faire apparaître des unités géantes.")]
+    public bool enableGiantSpawns = true;
 
-    private float timer = 0f;
-    private int spawnedCount = 0;
-    private int sequentialIndex = 0;
-
-    [System.Serializable]
-    public class WeightedEntry { public GameObject prefab; public float weight = 1f; }
-
-    private void Awake()
+    [Tooltip("Profil de multiplicateurs appliqué aux géants.")]
+    public GiantMultipliers giantProfile = new GiantMultipliers
     {
-        if (spawnPoint == null) spawnPoint = transform;
+        healthMult = 2.5f,
+        damageMult = 1.8f,
+        speedMult = 0.9f,
+        sizeMult = 1.75f
+    };
 
-        if (monsterFolder == null)
-        {
-            var existing = GameObject.Find(autoFolderName);
-            monsterFolder = existing ? existing.transform : new GameObject(autoFolderName).transform;
-        }
-        SetSpawning(startEnabled, affectVisuals: true);
+    [Tooltip("Probabilité de base au démarrage (0..1).")]
+    [Range(0f, 1f)] public float baseGiantChance = 0.01f;
+
+    [Tooltip("Probabilité maxi (0..1).")]
+    [Range(0f, 1f)] public float maxGiantChance = 0.25f;
+
+    [Tooltip("Réinitialisation de la proba après l'apparition d'un géant.")]
+    [Range(0f, 1f)] public float resetGiantChance = 0.01f;
+
+    [Space]
+    [Tooltip("Fait croître la probabilité avec le TEMPS (sinon, par SPAWN).")]
+    public bool rampByTime = true;
+
+    [Tooltip("Vitesse d'augmentation par minute si rampByTime = true (ex: 0.03 = +3%/min).")]
+    [Min(0f)] public float giantChanceRampPerMinute = 0.03f;
+
+    [Tooltip("Augmentation par spawn manqué si rampByTime = false (ex: 0.02 = +2% par spawn).")]
+    [Range(0f, 1f)] public float chanceIncreasePerSpawn = 0.02f;
+
+    [Space]
+    [Tooltip("Cooldown (secondes) minimal entre deux apparitions de géants.")]
+    [Min(0f)] public float giantCooldownSeconds = 0f;
+
+    // --- Runtime ---
+    private float _timer = 0f;
+    private int _spawnedCount = 0;
+    private float _currentGiantChance;
+    private float _giantCooldownTimer = 0f;
+
+    private void Start()
+    {
+        if (!spawnPoint) spawnPoint = transform;
+        _currentGiantChance = Mathf.Clamp01(baseGiantChance);
     }
 
     private void Update()
     {
-        if (!spawnEnabled) return;
+        if (!isActive) return;
 
-        // option: si max atteint, auto-off
-        if (maxSpawn != -1 && spawnedCount >= maxSpawn)
+        // Cooldown géant
+        if (_giantCooldownTimer > 0f)
+            _giantCooldownTimer = Mathf.Max(0f, _giantCooldownTimer - Time.deltaTime);
+
+        // Montée de proba avec le temps (optionnelle)
+        if (enableGiantSpawns && rampByTime && maxGiantChance > 0f && giantChanceRampPerMinute > 0f)
         {
-            if (autoDisableOnMax) SetSpawning(false);
-            return;
+            float inc = (giantChanceRampPerMinute / 60f) * Time.deltaTime;
+            _currentGiantChance = Mathf.Clamp01(_currentGiantChance + inc);
+            if (_currentGiantChance > maxGiantChance) _currentGiantChance = maxGiantChance;
         }
 
-        timer += Time.deltaTime;
-        if (timer >= spawnInterval)
+        // Timer de spawn
+        _timer += Time.deltaTime;
+        if (_timer >= spawnInterval)
         {
-            timer = 0f;
+            _timer = 0f;
             SpawnMonster();
         }
     }
 
     private void SpawnMonster()
     {
-        if (maxSpawn != -1 && spawnedCount >= maxSpawn) return;
+        if (!monsterPrefab) return;
+        if (maxSpawn >= 0 && _spawnedCount >= maxSpawn) return;
 
-        var prefabToSpawn = ResolvePrefab();
-        if (!prefabToSpawn) return;
+        // Tirage géant ?
+        bool canSpawnGiant = enableGiantSpawns && _giantCooldownTimer <= 0f;
+        bool spawnAsGiant = false;
 
-        Instantiate(prefabToSpawn, spawnPoint.position, spawnPoint.rotation, monsterFolder);
-        spawnedCount++;
-    }
-
-    private GameObject ResolvePrefab()
-    {
-        switch (spawnMode)
+        if (canSpawnGiant)
         {
-            case SpawnMode.Single:
-                return monsterPrefab;
-
-            case SpawnMode.Sequential:
-                if (prefabs == null || prefabs.Count == 0) return null;
-                var p = prefabs[sequentialIndex % prefabs.Count];
-                sequentialIndex = (sequentialIndex + 1) % Mathf.Max(1, prefabs.Count);
-                return p;
-
-            case SpawnMode.Random:
-                if (prefabs == null || prefabs.Count == 0) return null;
-                return prefabs[Random.Range(0, prefabs.Count)];
-
-            case SpawnMode.Weighted:
-                return PickWeighted(weightedPrefabs);
-
-            default: return null;
+            float roll = Random.value;
+            spawnAsGiant = roll < _currentGiantChance;
         }
-    }
 
-    private GameObject PickWeighted(List<WeightedEntry> entries)
-    {
-        if (entries == null || entries.Count == 0) return null;
-        float total = 0f;
-        foreach (var e in entries) if (e?.prefab && e.weight > 0) total += e.weight;
-        if (total <= 0f) return null;
+        // Instantiation
+        GameObject go = Instantiate(monsterPrefab, spawnPoint.position, spawnPoint.rotation);
+        if (monsterFolder) go.transform.SetParent(monsterFolder, true);
 
-        float r = Random.value * total;
-        foreach (var e in entries)
+        // Application des multiplicateurs géants (V2 only)
+        if (spawnAsGiant)
         {
-            if (!e?.prefab || e.weight <= 0) continue;
-            if (r < e.weight) return e.prefab;
-            r -= e.weight;
+            var comps = go.GetComponentsInChildren<MonoBehaviour>(true);
+            foreach (var mb in comps)
+                if (mb is IGiantifiable v2)
+                    v2.ApplyGiantMultipliers(giantProfile);
+
+            // Reset de proba + cooldown
+            _currentGiantChance = Mathf.Clamp01(resetGiantChance);
+            if (giantCooldownSeconds > 0f)
+                _giantCooldownTimer = giantCooldownSeconds;
         }
-        return null;
-    }
-
-    // --------- API RUNTIME : ON/OFF, Pause, Reset ---------
-
-    /// Active/désactive le spawn (et optionnellement les visuels).
-    public void SetSpawning(bool enabled, bool affectVisuals = false)
-    {
-        spawnEnabled = enabled;
-        if (affectVisuals && visualsToToggle != null)
+        else
         {
-            foreach (var go in visualsToToggle) if (go) go.SetActive(enabled);
+            // Montée par spawn si on n'utilise pas la montée par temps
+            if (!rampByTime && enableGiantSpawns && chanceIncreasePerSpawn > 0f)
+            {
+                _currentGiantChance = Mathf.Clamp01(_currentGiantChance + chanceIncreasePerSpawn);
+                if (_currentGiantChance > maxGiantChance) _currentGiantChance = maxGiantChance;
+            }
         }
+
+        _spawnedCount++;
     }
 
-    public void EnableSpawning(bool affectVisuals = false) => SetSpawning(true, affectVisuals);
-    public void DisableSpawning(bool affectVisuals = false) => SetSpawning(false, affectVisuals);
-    public void ToggleSpawning(bool affectVisuals = false) => SetSpawning(!spawnEnabled, affectVisuals);
+    // --- API publique ---
 
-    /// Pause le spawn pendant X secondes puis reprend automatiquement.
-    public void PauseFor(float seconds, bool affectVisuals = false)
-    {
-        if (gameObject.activeInHierarchy)
-            StartCoroutine(PauseRoutine(seconds, affectVisuals));
-    }
-    private IEnumerator PauseRoutine(float seconds, bool affectVisuals)
-    {
-        bool prev = spawnEnabled;
-        SetSpawning(false, affectVisuals);
-        yield return new WaitForSeconds(seconds);
-        SetSpawning(prev, affectVisuals);
-    }
+    public void SetActive(bool value) => isActive = value;
+    public void ToggleActive() => isActive = !isActive;
 
-    /// Force un spawn immédiat (même si timer pas écoulé), seulement si activé.
-    public void ForceSpawnOnce()
-    {
-        if (!spawnEnabled) return;
-        SpawnMonster();
-    }
+    public void ResetGiantProbability() => _currentGiantChance = Mathf.Clamp01(baseGiantChance);
 
-    /// Reset (compteur/timer) et optionnellement les limites/intervalle.
-    public void ResetSpawner(float? newInterval = null, int? newMaxSpawn = null, bool resetCounter = true)
+#if UNITY_EDITOR
+    private void OnValidate()
     {
-        if (resetCounter)
-        {
-            spawnedCount = 0;
-            sequentialIndex = 0;
-        }
-        timer = 0f;
-        if (newInterval.HasValue) spawnInterval = newInterval.Value;
-        if (newMaxSpawn.HasValue) maxSpawn = newMaxSpawn.Value;
-    }
+        if (resetGiantChance < 0f) resetGiantChance = 0f;
+        if (maxGiantChance < baseGiantChance) maxGiantChance = baseGiantChance;
+        if (chanceIncreasePerSpawn < 0f) chanceIncreasePerSpawn = 0f;
+        if (giantChanceRampPerMinute < 0f) giantChanceRampPerMinute = 0f;
 
-    // --------- API RUNTIME : changer le type d’unité ---------
-
-    public void SetMonsterPrefab(GameObject newPrefab)
-    {
-        monsterPrefab = newPrefab;
-        spawnMode = SpawnMode.Single;
+        // garde un profil valide
+        if (giantProfile.healthMult <= 0f) giantProfile.healthMult = 1f;
+        if (giantProfile.damageMult <= 0f) giantProfile.damageMult = 1f;
+        if (giantProfile.speedMult <= 0f) giantProfile.speedMult = 1f;
+        if (giantProfile.sizeMult <= 0f) giantProfile.sizeMult = 1f;
     }
-    public void SetPrefabs(List<GameObject> newPrefabs, SpawnMode mode = SpawnMode.Sequential)
-    {
-        prefabs = newPrefabs ?? new List<GameObject>();
-        spawnMode = mode;
-        sequentialIndex = 0;
-    }
-    public void SetWeighted(List<WeightedEntry> newWeighted)
-    {
-        weightedPrefabs = newWeighted ?? new List<WeightedEntry>();
-        spawnMode = SpawnMode.Weighted;
-    }
-
-    public bool IsSpawning => spawnEnabled;
+#endif
 }

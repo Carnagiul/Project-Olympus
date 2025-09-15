@@ -50,6 +50,20 @@ MonoBehaviour:
   maxSpawn: -1
   spawnPoint: {fileID: 3171805272391767482}
   monsterFolder: {fileID: 5590427328330776042}
+  isActive: 1
+  enableGiantSpawns: 1
+  giantProfile:
+    healthMult: 10
+    damageMult: 5
+    speedMult: 0.9
+    sizeMult: 5
+  baseGiantChance: 0.01
+  maxGiantChance: 0.5
+  resetGiantChance: 0.01
+  rampByTime: 1
+  giantChanceRampPerMinute: 0.03
+  chanceIncreasePerSpawn: 0.01
+  giantCooldownSeconds: 0
 --- !u!1 &3898380913641814564
 GameObject:
   m_ObjectHideFlags: 0

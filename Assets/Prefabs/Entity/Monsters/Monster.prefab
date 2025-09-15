@@ -247,6 +247,7 @@ GameObject:
   - component: {fileID: -5236940860262445134}
   - component: {fileID: 7745031895105793921}
   - component: {fileID: 4881970547041782677}
+  - component: {fileID: 3385719762657295267}
   m_Layer: 7
   m_Name: Monster
   m_TagString: Monsters
@@ -304,10 +305,6 @@ MonoBehaviour:
   repathInterval: 0.25
   stoppingDistance: 1.2
   sampleRadius: 2
-  attackRange: 2
-  attackCooldown: 1
-  attackDamage: 10
-  attackType: 0
   deathFxPrefab: {fileID: 0}
 --- !u!195 &2618473117045608019
 NavMeshAgent:
@@ -346,6 +343,11 @@ MonoBehaviour:
   preset: {fileID: 11400000, guid: 328f7002ff431f542bcfbf6f5a1dd3c9, type: 2}
   damageMultiplier: 1
   armorBonus: 0
+  rangeMultiplier: 1
+  cooldownMultiplier: 1
+  OnPresetChanged:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &-5236940860262445134
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -402,6 +404,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::KillRewardOnDeath
   goldReward: 1
+--- !u!114 &3385719762657295267
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2853561736591031515}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ea6fbe9e5b7f2541a5378f2e4737bfd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EntityGiantifier
+  stats: {fileID: 0}
+  scaleTarget: {fileID: 0}
+  annotateAsGiant: 1
+  allowScaleReset: 1
 --- !u!1001 &479462406778290330
 PrefabInstance:
   m_ObjectHideFlags: 0
