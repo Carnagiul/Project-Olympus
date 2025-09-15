@@ -6,14 +6,13 @@ using UnityEngine.AI;
 public class MonsterController : EntityController
 {
     [Header("Targeting")]
-    [Tooltip("Cherche automatiquement un objet Tag 'Nexus' si vide")]
-    public Transform target; // laisse vide pour auto-find
+    public Transform target;                 // si null => fallback par tag
     public string nexusTag = "Nexus";
 
     [Header("Movement")]
-    public float repathInterval = 0.25f;  // temps entre 2 SetDestination
-    public float stoppingDistance = 1.2f; // cohérent avec AttackRange
-    public float sampleRadius = 2.0f;     // tolérance pour snap au NavMesh
+    public float repathInterval = 0.25f;
+    public float stoppingDistance = 1.2f;
+    public float sampleRadius = 2.0f;
 
     [Header("Death FX")]
     public GameObject deathFxPrefab;
@@ -30,11 +29,8 @@ public class MonsterController : EntityController
         agent = GetComponent<NavMeshAgent>();
         agent.updateRotation = true;
         agent.updateUpAxis = true;
-
-        // StoppingDistance cohérent avec la portée d'attaque (via Stats/EntityController proxy)
         agent.stoppingDistance = Mathf.Max(stoppingDistance, AttackRange * 0.9f);
 
-        // Snap au NavMesh si nécessaire (évite les agents "off mesh" au spawn)
         if (NavMesh.SamplePosition(transform.position, out var hit, sampleRadius, NavMesh.AllAreas))
             transform.position = hit.position;
 
@@ -51,6 +47,18 @@ public class MonsterController : EntityController
         targetEntity = target ? target.GetComponentInParent<EntityController>() : null;
     }
 
+    public void SetTarget(Transform t)
+    {
+        target = t;
+        targetEntity = target ? target.GetComponentInParent<EntityController>() : null;
+    }
+
+    public void SetTargetTeam(Team enemyTeam)
+    {
+        if (enemyTeam && enemyTeam.nexus)
+            SetTarget(enemyTeam.nexus.transform);
+    }
+
     void Update()
     {
         if (target == null || targetEntity == null || !targetEntity.IsAlive)
@@ -61,7 +69,6 @@ public class MonsterController : EntityController
 
         float dist = Vector3.Distance(transform.position, target.position);
 
-        // Déplacement par NavMesh
         if (dist > AttackRange && Time.time >= nextPathTime && agent.isOnNavMesh)
         {
             agent.stoppingDistance = Mathf.Max(stoppingDistance, AttackRange * 0.9f);
@@ -69,7 +76,6 @@ public class MonsterController : EntityController
             nextPathTime = Time.time + repathInterval;
         }
 
-        // Regarder la cible quand on est proche
         if (dist <= Mathf.Max(AttackRange * 1.5f, 3f))
         {
             Vector3 look = target.position - transform.position; look.y = 0f;
@@ -77,21 +83,10 @@ public class MonsterController : EntityController
                 transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(look), 10f * Time.deltaTime);
         }
 
-        // Attaque (valeurs via proxys : AttackCooldown / DamageEffective / DamageType)
-        if (dist <= AttackRange)
+        if (dist <= AttackRange && Time.time >= nextAttackTime)
         {
-            if (Time.time >= nextAttackTime)
-            {
-                nextAttackTime = Time.time + AttackCooldown;
-
-                DealDamage(
-                    targetEntity,
-                    DamageEffective,
-                    DamageType,
-                    hitPoint: target.position,
-                    hitNormal: Vector3.up
-                );
-            }
+            nextAttackTime = Time.time + AttackCooldown;
+            DealDamage(targetEntity, DamageEffective, DamageType, hitPoint: target.position, hitNormal: Vector3.up);
         }
     }
 

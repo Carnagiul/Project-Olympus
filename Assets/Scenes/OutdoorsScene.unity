@@ -680,6 +680,65 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 294386515}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &300903555
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 300903557}
+  - component: {fileID: 300903556}
+  m_Layer: 0
+  m_Name: RedTeam
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &300903556
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 300903555}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b88128e9caf6a7c409fcba97ff57bd16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Team
+  teamName: Red
+  teamColor: {r: 1, g: 0.10849059, b: 0.10849059, a: 1}
+  nexus: {fileID: 0}
+  players: []
+  portals:
+  - {fileID: 1605342474}
+  - {fileID: 937954340}
+  - {fileID: 2084454796}
+  - {fileID: 1405720636}
+--- !u!4 &300903557
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 300903555}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1534345863}
+  m_Father: {fileID: 1248544785}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &391382679 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2853561736591031515, guid: 7868f090efefa9f4d8eaf944dc7c429e, type: 3}
+  m_PrefabInstance: {fileID: 240386431}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &393312667
 GameObject:
   m_ObjectHideFlags: 0
@@ -793,6 +852,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1534345863}
     m_Modifications:
+    - target: {fileID: 528080001662283440, guid: a42c21f0f5675a747bce5f6d22019c7d, type: 3}
+      propertyPath: ownerTeam
+      value: 
+      objectReference: {fileID: 300903556}
+    - target: {fileID: 528080001662283440, guid: a42c21f0f5675a747bce5f6d22019c7d, type: 3}
+      propertyPath: targetTeam
+      value: 
+      objectReference: {fileID: 638252875}
     - target: {fileID: 528080001662283440, guid: a42c21f0f5675a747bce5f6d22019c7d, type: 3}
       propertyPath: spawnEnabled
       value: 0
@@ -1410,6 +1477,56 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &638252874
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 638252876}
+  - component: {fileID: 638252875}
+  m_Layer: 0
+  m_Name: BlueTeam
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &638252875
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 638252874}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b88128e9caf6a7c409fcba97ff57bd16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Team
+  teamName: Blue
+  teamColor: {r: 0, g: 0.17926931, b: 1, a: 1}
+  nexus: {fileID: 1407665213}
+  players:
+  - {fileID: 391382679}
+  portals: []
+--- !u!4 &638252876
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 638252874}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1248544785}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &657336744
 GameObject:
   m_ObjectHideFlags: 0
@@ -1875,6 +1992,14 @@ PrefabInstance:
     m_TransformParent: {fileID: 1534345863}
     m_Modifications:
     - target: {fileID: 528080001662283440, guid: a42c21f0f5675a747bce5f6d22019c7d, type: 3}
+      propertyPath: ownerTeam
+      value: 
+      objectReference: {fileID: 300903556}
+    - target: {fileID: 528080001662283440, guid: a42c21f0f5675a747bce5f6d22019c7d, type: 3}
+      propertyPath: targetTeam
+      value: 
+      objectReference: {fileID: 638252875}
+    - target: {fileID: 528080001662283440, guid: a42c21f0f5675a747bce5f6d22019c7d, type: 3}
       propertyPath: spawnEnabled
       value: 0
       objectReference: {fileID: 0}
@@ -1940,6 +2065,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7877343366593988653, guid: a42c21f0f5675a747bce5f6d22019c7d, type: 3}
   m_PrefabInstance: {fileID: 937954338}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &937954340 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 528080001662283440, guid: a42c21f0f5675a747bce5f6d22019c7d, type: 3}
+  m_PrefabInstance: {fileID: 937954338}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eaff2633b244c2f4c92732c51df763a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PortalSpawner
 --- !u!1 &999297072
 GameObject:
   m_ObjectHideFlags: 0
@@ -2211,6 +2347,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1248544785}
   - component: {fileID: 1248544784}
+  - component: {fileID: 1248544786}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -2248,8 +2385,25 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1371757056}
+  - {fileID: 300903557}
+  - {fileID: 638252876}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1248544786
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1248544783}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4363a30b21edd0145a38927322671eda, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TeamManager
+  teams:
+  - {fileID: 300903556}
+  - {fileID: 638252875}
 --- !u!1 &1371757052
 GameObject:
   m_ObjectHideFlags: 0
@@ -2359,12 +2513,34 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6745363639487616826, guid: 7868f090efefa9f4d8eaf944dc7c429e, type: 3}
   m_PrefabInstance: {fileID: 240386431}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 391382679}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2bc67414798bec244b88f8235887f649, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FpsController
+--- !u!114 &1405720636 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 528080001662283440, guid: a42c21f0f5675a747bce5f6d22019c7d, type: 3}
+  m_PrefabInstance: {fileID: 419945738}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eaff2633b244c2f4c92732c51df763a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PortalSpawner
+--- !u!114 &1407665213 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3140806922574190237, guid: 3d5a49788c27cd445834ed7b9051ac65, type: 3}
+  m_PrefabInstance: {fileID: 1496871626}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fc99f45a657ccf4ca7fafbe2cfe6d93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NexusController
 --- !u!1 &1432196087
 GameObject:
   m_ObjectHideFlags: 0
@@ -2575,8 +2751,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1534345862}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.34112, y: 6.04296, z: 34.16158}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -8.833341, y: 6.04296, z: -22.671272}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2584,7 +2760,7 @@ Transform:
   - {fileID: 937954339}
   - {fileID: 2084454795}
   - {fileID: 419945739}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 300903557}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1579910213
 GameObject:
@@ -2719,6 +2895,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7877343366593988653, guid: a42c21f0f5675a747bce5f6d22019c7d, type: 3}
   m_PrefabInstance: {fileID: 143962017606834307}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1605342474 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 528080001662283440, guid: a42c21f0f5675a747bce5f6d22019c7d, type: 3}
+  m_PrefabInstance: {fileID: 143962017606834307}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eaff2633b244c2f4c92732c51df763a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PortalSpawner
 --- !u!1 &1730570958
 GameObject:
   m_ObjectHideFlags: 0
@@ -3236,6 +3423,14 @@ PrefabInstance:
     m_TransformParent: {fileID: 1534345863}
     m_Modifications:
     - target: {fileID: 528080001662283440, guid: a42c21f0f5675a747bce5f6d22019c7d, type: 3}
+      propertyPath: ownerTeam
+      value: 
+      objectReference: {fileID: 300903556}
+    - target: {fileID: 528080001662283440, guid: a42c21f0f5675a747bce5f6d22019c7d, type: 3}
+      propertyPath: targetTeam
+      value: 
+      objectReference: {fileID: 638252875}
+    - target: {fileID: 528080001662283440, guid: a42c21f0f5675a747bce5f6d22019c7d, type: 3}
       propertyPath: spawnEnabled
       value: 0
       objectReference: {fileID: 0}
@@ -3301,6 +3496,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7877343366593988653, guid: a42c21f0f5675a747bce5f6d22019c7d, type: 3}
   m_PrefabInstance: {fileID: 2084454794}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2084454796 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 528080001662283440, guid: a42c21f0f5675a747bce5f6d22019c7d, type: 3}
+  m_PrefabInstance: {fileID: 2084454794}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eaff2633b244c2f4c92732c51df763a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PortalSpawner
 --- !u!1001 &143962017606834307
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3309,6 +3515,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1534345863}
     m_Modifications:
+    - target: {fileID: 528080001662283440, guid: a42c21f0f5675a747bce5f6d22019c7d, type: 3}
+      propertyPath: ownerTeam
+      value: 
+      objectReference: {fileID: 300903556}
+    - target: {fileID: 528080001662283440, guid: a42c21f0f5675a747bce5f6d22019c7d, type: 3}
+      propertyPath: targetTeam
+      value: 
+      objectReference: {fileID: 638252875}
     - target: {fileID: 528080001662283440, guid: a42c21f0f5675a747bce5f6d22019c7d, type: 3}
       propertyPath: spawnEnabled
       value: 1
@@ -3382,6 +3596,5 @@ SceneRoots:
   - {fileID: 1496871626}
   - {fileID: 1248544785}
   - {fileID: 730446002}
-  - {fileID: 1534345863}
   - {fileID: 240386431}
   - {fileID: 613347977}
