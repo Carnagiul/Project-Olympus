@@ -1,0 +1,20 @@
+{
+    "asset": "5418398a5f3187449b39de8e2bc42a0c",
+    "fileName": "01995346-95f2-7e12-b706-1723298f9602.jpg",
+    "prompt": "An Heroic Fantasy World where players builds tower to defeat monster send by other country.",
+    "negativePrompt": "",
+    "model": "4474eebb-015a-4f8e-a2db-79c73b6b5b00",
+    "modelName": "Bold Lines Illustrations",
+    "customSeed": -1,
+    "w3CTraceId": "f4deec4280030cf5516e528fe40ff7d4",
+    "refinementMode": "Generation",
+    "pixelateTargetSize": 0,
+    "pixelateKeepImageSize": false,
+    "pixelatePixelBlockSize": 0,
+    "pixelateMode": 0,
+    "pixelateOutlineThickness": 0,
+    "doodles": {
+        "m_Items": []
+    },
+    "upscaleFactor": 0
+}

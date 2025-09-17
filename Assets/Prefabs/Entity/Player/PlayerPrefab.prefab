@@ -256,8 +256,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8362642071925986512}
-  - component: {fileID: 1207186564056622218}
   - component: {fileID: 6745363639487616826}
+  - component: {fileID: 1207186564056622218}
   - component: {fileID: 5397225455294331478}
   - component: {fileID: 1761431243490986745}
   - component: {fileID: 4064115033359388707}
@@ -293,43 +293,6 @@ Transform:
   - {fileID: 8342466025657278062}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1207186564056622218
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2853561736591031515}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c089718116687fb48afe846fdfdda2ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::FpsAudio
-  cameraEffects: {fileID: 928660627550802506}
-  minStepIntervalSeconds: 0.5
-  sprintIntervalMultiplier: 0.6
-  crouchIntervalMultiplier: 1.4
-  leftSource: {fileID: 0}
-  rightSource: {fileID: 0}
-  footstepDefault:
-  - {fileID: 8300000, guid: d3f70f2b56508214eb60159d689f22c9, type: 3}
-  - {fileID: 8300000, guid: 5aef2c04731828b488e79a43b3066b86, type: 3}
-  surfaceSets: []
-  jumpClip: {fileID: 0}
-  landLightClip: {fileID: 0}
-  landHardClip: {fileID: 0}
-  slideLoopClip: {fileID: 0}
-  baseFootstepVolume: 0.8
-  footstepPitchJitter: 0.06
-  hardLandVelY: -10
-  minMoveSpeed: 0.2
-  groundLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  raycastDown: 0.6
-  reverbZoneMix: 1
-  footOffsetX: 0.18
-  footOffsetY: 0
 --- !u!114 &6745363639487616826
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -385,6 +348,43 @@ MonoBehaviour:
   equippedWeapon: {fileID: 5848334868417724106}
   playerCamera: {fileID: 1224660593960158096}
   goldWallet: {fileID: 1761431243490986745}
+--- !u!114 &1207186564056622218
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2853561736591031515}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c089718116687fb48afe846fdfdda2ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FpsAudio
+  cameraEffects: {fileID: 928660627550802506}
+  minStepIntervalSeconds: 0.5
+  sprintIntervalMultiplier: 0.6
+  crouchIntervalMultiplier: 1.4
+  leftSource: {fileID: 0}
+  rightSource: {fileID: 0}
+  footstepDefault:
+  - {fileID: 8300000, guid: d3f70f2b56508214eb60159d689f22c9, type: 3}
+  - {fileID: 8300000, guid: 5aef2c04731828b488e79a43b3066b86, type: 3}
+  surfaceSets: []
+  jumpClip: {fileID: 0}
+  landLightClip: {fileID: 0}
+  landHardClip: {fileID: 0}
+  slideLoopClip: {fileID: 0}
+  baseFootstepVolume: 0.8
+  footstepPitchJitter: 0.06
+  hardLandVelY: -10
+  minMoveSpeed: 0.2
+  groundLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  raycastDown: 0.6
+  reverbZoneMix: 1
+  footOffsetX: 0.18
+  footOffsetY: 0
 --- !u!143 &5397225455294331478
 CharacterController:
   m_ObjectHideFlags: 0
@@ -441,6 +441,11 @@ MonoBehaviour:
   preset: {fileID: 11400000, guid: 0db598b23f3a3d947a0cfa0ad01c8075, type: 2}
   damageMultiplier: 1
   armorBonus: 0
+  rangeMultiplier: 1
+  cooldownMultiplier: 1
+  OnPresetChanged:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &1282724900421565039
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1318,11 +1323,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2253381562330056724}
+  - component: {fileID: 6506386535648330753}
   - component: {fileID: 1224660593960158096}
   - component: {fileID: 7703582037260067821}
   - component: {fileID: 5376493590449149999}
   - component: {fileID: 928660627550802506}
-  - component: {fileID: 6506386535648330753}
   m_Layer: 7
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1345,6 +1350,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 8362642071925986512}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6506386535648330753
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8776643467726023247}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20ba17aba1ffa86408b6029d61cd7c33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FpsLook
+  mouseSensitivity: 0.15
+  pitchMin: -85
+  pitchMax: 85
+  playerBody: {fileID: 8362642071925986512}
 --- !u!20 &1224660593960158096
 Camera:
   m_ObjectHideFlags: 0
@@ -1567,22 +1588,6 @@ MonoBehaviour:
   baseFov: 60
   fovKickAtSprint: 8
   fovLerp: 8
---- !u!114 &6506386535648330753
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8776643467726023247}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20ba17aba1ffa86408b6029d61cd7c33, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::FpsLook
-  mouseSensitivity: 0.15
-  pitchMin: -85
-  pitchMax: 85
-  playerBody: {fileID: 8362642071925986512}
 --- !u!1001 &479462406778290330
 PrefabInstance:
   m_ObjectHideFlags: 0
