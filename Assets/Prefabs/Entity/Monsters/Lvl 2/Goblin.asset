@@ -12,8 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17bbd831473e6874191f5c7ce84b2d30, type: 3}
   m_Name: Goblin
   m_EditorClassIdentifier: Assembly-CSharp::EntityStatsAsset
-  maxHealth: 25
-  armor: 1
-  armorType: 1
-  baseDamage: 20
+  maxHealth: 55
+  armor: 3
+  armorType: 2
+  baseDamage: 50
   damageType: 0
+  attackRange: 8
+  attackCooldown: 0.7
+  projectileSpeed: 0
