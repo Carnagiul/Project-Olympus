@@ -28,10 +28,6 @@ public class EntityController : MonoBehaviour
     public bool hideRenderersDuringRespawn = true;
     public Behaviour[] disableDuringRespawn;
 
-    [Header("Pricing")]
-    public int GoldPrice = 0;
-    public int GoldDrop = 0;
-
     // ---- Proxies Health
     public bool IsAlive => Health != null && Health.IsAlive;
     public float CurrentHealth => Health ? Health.Current : 0f;

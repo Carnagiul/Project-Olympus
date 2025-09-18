@@ -1097,7 +1097,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3256514098970867944, guid: a42c21f0f5675a747bce5f6d22019c7d, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7877343366593988653, guid: a42c21f0f5675a747bce5f6d22019c7d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3123,7 +3123,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3256514098970867944, guid: a42c21f0f5675a747bce5f6d22019c7d, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7877343366593988653, guid: a42c21f0f5675a747bce5f6d22019c7d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4998,7 +4998,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3256514098970867944, guid: a42c21f0f5675a747bce5f6d22019c7d, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7877343366593988653, guid: a42c21f0f5675a747bce5f6d22019c7d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5085,6 +5085,10 @@ PrefabInstance:
       propertyPath: startEnabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 528080001662283440, guid: a42c21f0f5675a747bce5f6d22019c7d, type: 3}
+      propertyPath: monsterPrefab
+      value: 
+      objectReference: {fileID: 2853561736591031515, guid: 7463ea5933c749d48a1adce31d3fb4a3, type: 3}
     - target: {fileID: 3256514098970867944, guid: a42c21f0f5675a747bce5f6d22019c7d, type: 3}
       propertyPath: m_Name
       value: Portal
