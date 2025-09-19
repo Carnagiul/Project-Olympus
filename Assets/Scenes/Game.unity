@@ -5088,7 +5088,7 @@ PrefabInstance:
     - target: {fileID: 528080001662283440, guid: a42c21f0f5675a747bce5f6d22019c7d, type: 3}
       propertyPath: monsterPrefab
       value: 
-      objectReference: {fileID: 2853561736591031515, guid: 7463ea5933c749d48a1adce31d3fb4a3, type: 3}
+      objectReference: {fileID: 2853561736591031515, guid: e2702c28d6c60ed4198f02f594f9ec6c, type: 3}
     - target: {fileID: 3256514098970867944, guid: a42c21f0f5675a747bce5f6d22019c7d, type: 3}
       propertyPath: m_Name
       value: Portal
