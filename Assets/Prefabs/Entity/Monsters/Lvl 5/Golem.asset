@@ -18,5 +18,5 @@ MonoBehaviour:
   baseDamage: 200
   damageType: 1
   attackRange: 8
-  attackCooldown: 0.5
+  attackCooldown: 4
   projectileSpeed: 0
