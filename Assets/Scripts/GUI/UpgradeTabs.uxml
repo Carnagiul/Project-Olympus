@@ -1,5 +1,5 @@
-<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
-    <Style src="project://database/Assets/Scripts/GUI/UpgradeTabs.uss?fileID=7433441132597879392&amp;guid=0ccd48ff417b3ee4ab5758e229c7f88a&amp;type=3#UpgradeTabs" />
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:app="Assets.Scripts.UI.Store" editor-extension-mode="False">
+    <Style src="project://database/Assets/Resources/StoreActionButton.uss?fileID=7433441132597879392&amp;guid=fe52b1d45a848934d918af0dd72422f6&amp;type=3#StoreActionButton" />
     <ui:VisualElement name="Root" class="overlay">
         <ui:VisualElement name="Frame" class="frame">
             <ui:Label name="Header" text="UPGRADES" class="header" />
@@ -9,36 +9,24 @@
                 <ui:Button name="Tab_Waves" text="Vagues" class="tab" />
             </ui:VisualElement>
             <ui:VisualElement name="Tabs" class="tabs">
-                <ui:VisualElement name="TabContent_Player" class="tabcontent tabcontent--active" style="display: none;">
+                <ui:VisualElement name="TabContent_Player" class="tabcontent tabcontent--active" style="display: flex;">
                     <ui:Label text="Joueur" class="title" />
-                    <ui:Button name="Btn_PlayerMaxHp" text="Améliorer PV Max" class="btn" />
-                    <ui:Label name="Txt_PlayerMaxHpCostLvl" text="Lv 0 | Cost: 80" class="sub" />
-                    <ui:Button name="Btn_PlayerArmorTypeCycler" text="Changer type d&apos;armure" class="btn" />
-                    <ui:Label name="Txt_PlayerArmorType" text="Kevlar" class="sub" />
-                    <ui:Button name="Btn_PlayerArmorLvl" text="Améliorer armure" class="btn" />
-                    <ui:Label name="Txt_PlayerArmorCostLvl" text="Lv 0 | Cost: 70" class="sub" />
-                    <ui:Button name="Btn_PlayerDamageTypeCycler" text="Changer type dégâts" class="btn" />
-                    <ui:Label name="Txt_PlayerDamageType" text="Kinetic" class="sub" />
-                    <ui:Button name="Btn_PlayerWeaponLvl" text="Améliorer arme" class="btn" />
-                    <ui:Label name="Txt_PlayerWeaponCostLvl" text="Lv 0 | Cost: 90" class="sub" />
+                    <app:StoreActionButton name="Btn_PlayerMaxHp" label="Améliorer PV Max" sub="Niveau +1" price="--" icon="❤" canBuy="false" uss="project://database/Assets/Resources/StoreActionButton.uss?fileID=7433441132597879392&amp;guid=fe52b1d45a848934d918af0dd72422f6&amp;type=3#StoreActionButton" uxml="project://database/Assets/Resources/StoreActionButton.uxml?fileID=9197481963319205126&amp;guid=1e0e48da0271bff48b78aa88cc05700f&amp;type=3#StoreActionButton" />
+                    <app:StoreActionButton name="Btn_PlayerArmorTypeCycler" label="Type d&apos;armure" sub="Kevlar" price="0 or" icon="🛡️" canBuy="true" uss="project://database/Assets/Resources/StoreActionButton.uss?fileID=7433441132597879392&amp;guid=fe52b1d45a848934d918af0dd72422f6&amp;type=3#StoreActionButton" uxml="project://database/Assets/Resources/StoreActionButton.uxml?fileID=9197481963319205126&amp;guid=1e0e48da0271bff48b78aa88cc05700f&amp;type=3#StoreActionButton" />
+                    <app:StoreActionButton name="Btn_PlayerArmorLvl" label="Améliorer armure" sub="Niveau +1" price="--" icon="🛡️" canBuy="false" uss="project://database/Assets/Resources/StoreActionButton.uss?fileID=7433441132597879392&amp;guid=fe52b1d45a848934d918af0dd72422f6&amp;type=3#StoreActionButton" uxml="project://database/Assets/Resources/StoreActionButton.uxml?fileID=9197481963319205126&amp;guid=1e0e48da0271bff48b78aa88cc05700f&amp;type=3#StoreActionButton" />
+                    <app:StoreActionButton name="Btn_PlayerDamageTypeCycler" label="Type d&apos;attaque" sub="Kinetic" price="0 or" icon="⚔️" canBuy="true" uss="project://database/Assets/Resources/StoreActionButton.uss?fileID=7433441132597879392&amp;guid=fe52b1d45a848934d918af0dd72422f6&amp;type=3#StoreActionButton" uxml="project://database/Assets/Resources/StoreActionButton.uxml?fileID=9197481963319205126&amp;guid=1e0e48da0271bff48b78aa88cc05700f&amp;type=3#StoreActionButton" />
+                    <app:StoreActionButton name="Btn_PlayerWeaponLvl" label="Améliorer arme" sub="Niveau +1" price="--" icon="⚔️" canBuy="false" uss="project://database/Assets/Resources/StoreActionButton.uss?fileID=7433441132597879392&amp;guid=fe52b1d45a848934d918af0dd72422f6&amp;type=3#StoreActionButton" uxml="project://database/Assets/Resources/StoreActionButton.uxml?fileID=9197481963319205126&amp;guid=1e0e48da0271bff48b78aa88cc05700f&amp;type=3#StoreActionButton" />
                     <ui:VisualElement class="sep" />
-                    <ui:Button name="Btn_HealPlayer" text="Soigner le joueur (prix fixe)" class="btn btn--secondary" />
-                    <ui:Label name="Txt_HealPlayerCost" text="Cost: 50" class="sub" />
+                    <app:StoreActionButton name="Btn_HealPlayer" label="Soigner le joueur" sub="Prix fixe" price="50 or" icon="❤" canBuy="true" uss="project://database/Assets/Resources/StoreActionButton.uss?fileID=7433441132597879392&amp;guid=fe52b1d45a848934d918af0dd72422f6&amp;type=3#StoreActionButton" uxml="project://database/Assets/Resources/StoreActionButton.uxml?fileID=9197481963319205126&amp;guid=1e0e48da0271bff48b78aa88cc05700f&amp;type=3#StoreActionButton" />
                 </ui:VisualElement>
                 <ui:VisualElement name="TabContent_Nexus" class="tabcontent" style="display: none;">
                     <ui:Label text="Nexus" class="title" />
-                    <ui:Button name="Btn_NexusLevel" text="Améliorer niveau du Nexus" class="btn" />
-                    <ui:Label name="Txt_NexusLevelCostLvl" text="Cost: 120" class="sub" />
-                    <ui:Label name="Txt_NexusLevelValue" text="Level: 1" class="sub" />
-                    <ui:Button name="Btn_NexusMaxHp" text="Améliorer PV Max" class="btn" />
-                    <ui:Label name="Txt_NexusMaxHpCostLvl" text="Lv 0 | Cost: 100" class="sub" />
-                    <ui:Button name="Btn_NexusArmorTypeCycler" text="Changer type d&apos;armure" class="btn" />
-                    <ui:Label name="Txt_NexusArmorType" text="Kevlar" class="sub" />
-                    <ui:Button name="Btn_NexusArmorLvl" text="Améliorer armure" class="btn" />
-                    <ui:Label name="Txt_NexusArmorCostLvl" text="Lv 0 | Cost: 90" class="sub" />
+                    <app:StoreActionButton name="Btn_NexusLevel" label="Améliorer niveau du Nexus" sub="Augmente les stats globales" price="--" icon="🏛️" canBuy="false" uss="project://database/Assets/Resources/StoreActionButton.uss?fileID=7433441132597879392&amp;guid=fe52b1d45a848934d918af0dd72422f6&amp;type=3#StoreActionButton" uxml="project://database/Assets/Resources/StoreActionButton.uxml?fileID=9197481963319205126&amp;guid=1e0e48da0271bff48b78aa88cc05700f&amp;type=3#StoreActionButton" />
+                    <app:StoreActionButton name="Btn_NexusMaxHp" label="Améliorer PV Max" sub="Niveau +1" price="--" icon="❤" canBuy="false" uss="project://database/Assets/Resources/StoreActionButton.uss?fileID=7433441132597879392&amp;guid=fe52b1d45a848934d918af0dd72422f6&amp;type=3#StoreActionButton" uxml="project://database/Assets/Resources/StoreActionButton.uxml?fileID=9197481963319205126&amp;guid=1e0e48da0271bff48b78aa88cc05700f&amp;type=3#StoreActionButton" />
+                    <app:StoreActionButton name="Btn_NexusArmorTypeCycler" label="Type d&apos;armure" sub="Kevlar" price="0 or" icon="🛡️" canBuy="true" uss="project://database/Assets/Resources/StoreActionButton.uss?fileID=7433441132597879392&amp;guid=fe52b1d45a848934d918af0dd72422f6&amp;type=3#StoreActionButton" uxml="project://database/Assets/Resources/StoreActionButton.uxml?fileID=9197481963319205126&amp;guid=1e0e48da0271bff48b78aa88cc05700f&amp;type=3#StoreActionButton" />
+                    <app:StoreActionButton name="Btn_NexusArmorLvl" label="Améliorer armure" sub="Niveau +1" price="--" icon="🛡️" canBuy="false" uss="project://database/Assets/Resources/StoreActionButton.uss?fileID=7433441132597879392&amp;guid=fe52b1d45a848934d918af0dd72422f6&amp;type=3#StoreActionButton" uxml="project://database/Assets/Resources/StoreActionButton.uxml?fileID=9197481963319205126&amp;guid=1e0e48da0271bff48b78aa88cc05700f&amp;type=3#StoreActionButton" />
                     <ui:VisualElement class="sep" />
-                    <ui:Button name="Btn_HealNexus" text="Soigner le Nexus (prix fixe)" class="btn btn--secondary" />
-                    <ui:Label name="Txt_HealNexusCost" text="Cost: 80" class="sub" />
+                    <app:StoreActionButton name="Btn_HealNexus" label="Soigner le Nexus" sub="Prix fixe" price="80 or" icon="❤" canBuy="true" />
                 </ui:VisualElement>
                 <ui:VisualElement name="TabContent_Waves" class="tabcontent" style="display: none;">
                     <ui:Label text="Vagues" class="title" />

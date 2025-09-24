@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
+// IMPORTANT : ajoute le namespace où est StoreActionButton
+using Assets.Scripts.UI.Store;
 
 [RequireComponent(typeof(UIDocument))]
 public class UpgradeMenuUIToolkitTabs : MonoBehaviour
@@ -13,19 +15,17 @@ public class UpgradeMenuUIToolkitTabs : MonoBehaviour
     UIDocument doc;
     VisualElement root;
 
-    // Tabs
+    // Tabs (restent en <ui:Button>)
     Button tabPlayer, tabNexus, tabWaves;
     VisualElement tcPlayer, tcNexus, tcWaves;
 
-    // Player
-    Button bP_MaxHp, bP_ArmorType, bP_ArmorLvl, bP_DmgType, bP_WeaponLvl, bHealPlayer;
-    Label tP_MaxHpCostLvl, tP_ArmorType, tP_ArmorCostLvl, tP_DmgType, tP_WeaponCostLvl, tHealPlayerCost;
+    // Player (custom controls)
+    StoreActionButton bP_MaxHp, bP_ArmorType, bP_ArmorLvl, bP_DmgType, bP_WeaponLvl, bHealPlayer;
 
-    // Nexus
-    Button bN_Level, bN_MaxHp, bN_ArmorType, bN_ArmorLvl, bHealNexus;
-    Label tN_LevelCost, tN_LevelVal, tN_MaxHpCostLvl, tN_ArmorType, tN_ArmorCostLvl, tHealNexusCost;
+    // Nexus (custom controls)
+    StoreActionButton bN_Level, bN_MaxHp, bN_ArmorType, bN_ArmorLvl, bHealNexus;
 
-    // Waves
+    // Waves (inchangé)
     Toggle tGiants;
     SliderInt sBase, sMax, sRamp;
     Label txtBase, txtMax, txtRamp;
@@ -61,93 +61,37 @@ public class UpgradeMenuUIToolkitTabs : MonoBehaviour
         if (tabNexus != null) tabNexus.clicked += () => SetTab(1);
         if (tabWaves != null) tabWaves.clicked += () => SetTab(2);
 
-        // Player
-        bP_MaxHp = root.Q<Button>("Btn_PlayerMaxHp");
-        bP_ArmorType = root.Q<Button>("Btn_PlayerArmorTypeCycler");
-        bP_ArmorLvl = root.Q<Button>("Btn_PlayerArmorLvl");
-        bP_DmgType = root.Q<Button>("Btn_PlayerDamageTypeCycler");
-        bP_WeaponLvl = root.Q<Button>("Btn_PlayerWeaponLvl");
-        bHealPlayer = root.Q<Button>("Btn_HealPlayer");
+        // Player actions
+        bP_MaxHp = root.Q<StoreActionButton>("Btn_PlayerMaxHp");
+        bP_ArmorType = root.Q<StoreActionButton>("Btn_PlayerArmorTypeCycler");
+        bP_ArmorLvl = root.Q<StoreActionButton>("Btn_PlayerArmorLvl");
+        bP_DmgType = root.Q<StoreActionButton>("Btn_PlayerDamageTypeCycler");
+        bP_WeaponLvl = root.Q<StoreActionButton>("Btn_PlayerWeaponLvl");
+        bHealPlayer = root.Q<StoreActionButton>("Btn_HealPlayer");
 
-        tP_MaxHpCostLvl = root.Q<Label>("Txt_PlayerMaxHpCostLvl");
-        tP_ArmorType = root.Q<Label>("Txt_PlayerArmorType");
-        tP_ArmorCostLvl = root.Q<Label>("Txt_PlayerArmorCostLvl");
-        tP_DmgType = root.Q<Label>("Txt_PlayerDamageType");
-        tP_WeaponCostLvl = root.Q<Label>("Txt_PlayerWeaponCostLvl");
-        tHealPlayerCost = root.Q<Label>("Txt_HealPlayerCost");
+        // Nexus actions
+        bN_Level = root.Q<StoreActionButton>("Btn_NexusLevel");
+        bN_MaxHp = root.Q<StoreActionButton>("Btn_NexusMaxHp");
+        bN_ArmorType = root.Q<StoreActionButton>("Btn_NexusArmorTypeCycler");
+        bN_ArmorLvl = root.Q<StoreActionButton>("Btn_NexusArmorLvl");
+        bHealNexus = root.Q<StoreActionButton>("Btn_HealNexus");
 
-        if (bP_MaxHp != null) bP_MaxHp.clicked += () => { if (upgrades?.Upgrade_PlayerMaxHp() == true) Refresh(); };
-        if (bP_ArmorType != null) bP_ArmorType.clicked += () => { CyclePlayerArmorType(); Refresh(); };
-        if (bP_ArmorLvl != null) bP_ArmorLvl.clicked += () => { if (upgrades?.Upgrade_PlayerArmorLevel() == true) Refresh(); };
-        if (bP_DmgType != null) bP_DmgType.clicked += () => { CyclePlayerDamageType(); Refresh(); };
-        if (bP_WeaponLvl != null) bP_WeaponLvl.clicked += () => { if (upgrades?.Upgrade_PlayerWeaponLevel() == true) Refresh(); };
-        if (bHealPlayer != null) bHealPlayer.clicked += () => { if (upgrades?.HealPlayer() == true) Refresh(); };
+        // Clicks (vérifie canBuy avant d'appeler l'upgrade)
+        if (bP_MaxHp != null) bP_MaxHp.RegisterCallback<ClickEvent>(_ => { if (bP_MaxHp.canBuy && upgrades?.Upgrade_PlayerMaxHp() == true) Refresh(); });
+        if (bP_ArmorType != null) bP_ArmorType.RegisterCallback<ClickEvent>(_ => { CyclePlayerArmorType(); Refresh(); });
+        if (bP_ArmorLvl != null) bP_ArmorLvl.RegisterCallback<ClickEvent>(_ => { if (bP_ArmorLvl.canBuy && upgrades?.Upgrade_PlayerArmorLevel() == true) Refresh(); });
+        if (bP_DmgType != null) bP_DmgType.RegisterCallback<ClickEvent>(_ => { CyclePlayerDamageType(); Refresh(); });
+        if (bP_WeaponLvl != null) bP_WeaponLvl.RegisterCallback<ClickEvent>(_ => { if (bP_WeaponLvl.canBuy && upgrades?.Upgrade_PlayerWeaponLevel() == true) Refresh(); });
+        if (bHealPlayer != null) bHealPlayer.RegisterCallback<ClickEvent>(_ => { if (bHealPlayer.canBuy && upgrades?.HealPlayer() == true) Refresh(); });
 
-        // Nexus
-        bN_Level = root.Q<Button>("Btn_NexusLevel");
-        bN_MaxHp = root.Q<Button>("Btn_NexusMaxHp");
-        bN_ArmorType = root.Q<Button>("Btn_NexusArmorTypeCycler");
-        bN_ArmorLvl = root.Q<Button>("Btn_NexusArmorLvl");
-        bHealNexus = root.Q<Button>("Btn_HealNexus");
-
-        tN_LevelCost = root.Q<Label>("Txt_NexusLevelCostLvl");
-        tN_LevelVal = root.Q<Label>("Txt_NexusLevelValue");
-        tN_MaxHpCostLvl = root.Q<Label>("Txt_NexusMaxHpCostLvl");
-        tN_ArmorType = root.Q<Label>("Txt_NexusArmorType");
-        tN_ArmorCostLvl = root.Q<Label>("Txt_NexusArmorCostLvl");
-        tHealNexusCost = root.Q<Label>("Txt_HealNexusCost");
-
-        if (bN_Level != null) bN_Level.clicked += () => { if (upgrades?.Upgrade_NexusLevel() == true) Refresh(); };
-        if (bN_MaxHp != null) bN_MaxHp.clicked += () => { if (upgrades?.Upgrade_NexusMaxHp() == true) Refresh(); };
-        if (bN_ArmorType != null) bN_ArmorType.clicked += () => { CycleNexusArmorType(); Refresh(); };
-        if (bN_ArmorLvl != null) bN_ArmorLvl.clicked += () => { if (upgrades?.Upgrade_NexusArmorStats() == true) Refresh(); };
-        if (bHealNexus != null) bHealNexus.clicked += () => { if (upgrades?.HealNexus() == true) Refresh(); };
-
-        // Waves
-        tGiants = root.Q<Toggle>("Tgl_Giants");
-        sBase = root.Q<SliderInt>("Sld_BaseGiantChance");
-        sMax = root.Q<SliderInt>("Sld_MaxGiantChance");
-        sRamp = root.Q<SliderInt>("Sld_GiantRamp");
-        txtBase = root.Q<Label>("Txt_BaseGiantChance");
-        txtMax = root.Q<Label>("Txt_MaxGiantChance");
-        txtRamp = root.Q<Label>("Txt_GiantRamp");
-
-        if (tGiants != null)
-            tGiants.RegisterValueChangedCallback(evt =>
-            {
-                if (upgrades?.nexusSpawners == null) return;
-                foreach (var sp in upgrades.nexusSpawners) if (sp) sp.enableGiantSpawns = evt.newValue;
-            });
-
-        if (sBase != null)
-            sBase.RegisterValueChangedCallback(evt =>
-            {
-                if (upgrades?.nexusSpawners != null)
-                    foreach (var sp in upgrades.nexusSpawners) if (sp) sp.baseGiantChance = Mathf.Clamp01(evt.newValue / 100f);
-                txtBase.SetTextSafe($"Chance de base élites: {evt.newValue}%");
-            });
-
-        if (sMax != null)
-            sMax.RegisterValueChangedCallback(evt =>
-            {
-                if (upgrades?.nexusSpawners != null)
-                    foreach (var sp in upgrades.nexusSpawners) if (sp) sp.maxGiantChance = Mathf.Clamp01(evt.newValue / 100f);
-                txtMax.SetTextSafe($"Chance max élites: {evt.newValue}%");
-            });
-
-        if (sRamp != null)
-            sRamp.RegisterValueChangedCallback(evt =>
-            {
-                if (upgrades?.nexusSpawners != null)
-                    foreach (var sp in upgrades.nexusSpawners) if (sp) sp.giantChanceRampPerMinute = evt.newValue / 100f;
-                txtRamp.SetTextSafe($"Rampe élites (%/min): {evt.newValue}%");
-            });
+        if (bN_Level != null) bN_Level.RegisterCallback<ClickEvent>(_ => { if (bN_Level.canBuy && upgrades?.Upgrade_NexusLevel() == true) Refresh(); });
+        if (bN_MaxHp != null) bN_MaxHp.RegisterCallback<ClickEvent>(_ => { if (bN_MaxHp.canBuy && upgrades?.Upgrade_NexusMaxHp() == true) Refresh(); });
+        if (bN_ArmorType != null) bN_ArmorType.RegisterCallback<ClickEvent>(_ => { CycleNexusArmorType(); Refresh(); });
+        if (bN_ArmorLvl != null) bN_ArmorLvl.RegisterCallback<ClickEvent>(_ => { if (bN_ArmorLvl.canBuy && upgrades?.Upgrade_NexusArmorStats() == true) Refresh(); });
+        if (bHealNexus != null) bHealNexus.RegisterCallback<ClickEvent>(_ => { if (bHealNexus.canBuy && upgrades?.HealNexus() == true) Refresh(); });
 
         Hide();
-        //SetTab(0);
         Refresh();
-
-        RegisterDebugClicks();
     }
 
     void Update()
@@ -162,7 +106,6 @@ public class UpgradeMenuUIToolkitTabs : MonoBehaviour
         open = !open;
         if (open) Show(); else Hide();
 
-        // Curseur (namespace explicite)
         UnityEngine.Cursor.visible = open;
         UnityEngine.Cursor.lockState = open ? CursorLockMode.None : CursorLockMode.Locked;
 
@@ -172,20 +115,6 @@ public class UpgradeMenuUIToolkitTabs : MonoBehaviour
 
     void Show() { if (root != null) root.style.display = DisplayStyle.Flex; }
     void Hide() { if (root != null) root.style.display = DisplayStyle.None; }
-
-    void RegisterDebugClicks()
-    {
-        var allButtons = root.Query<Button>().ToList();
-        foreach (var btn in allButtons)
-        {
-            if (btn == null) continue;
-            btn.clicked += () =>
-            {
-                Debug.Log($"[UI] Click sur: {btn.name} (texte='{btn.text}')");
-                Refresh();
-            };
-        }
-    }
 
     void SetTab(int idx)
     {
@@ -207,46 +136,65 @@ public class UpgradeMenuUIToolkitTabs : MonoBehaviour
         ve.pickingMode = PickingMode.Position;
     }
 
+    // ---------- REFRESH (met à jour label/sub/price/état) ----------
     void Refresh()
     {
         if (upgrades == null) return;
 
         var wallet = (player ? player.GetComponent<GoldWallet>() : null) ?? upgrades.player?.GetComponent<GoldWallet>();
-        bool Can(int cost) => wallet && wallet.Amount >= cost;
+        int gold = wallet ? wallet.Amount : 0;
+        bool Can(int cost) => wallet && gold >= cost;
 
-        // Fixed
-        tHealPlayerCost.SetTextSafe($"Cost: {upgrades.healPlayerCost}");
-        tHealNexusCost.SetTextSafe($"Cost: {upgrades.healNexusCost}");
-        if (bHealPlayer != null) bHealPlayer.SetEnabled(Can(upgrades.healPlayerCost));
-        if (bHealNexus != null) bHealNexus.SetEnabled(Can(upgrades.healNexusCost));
+        // HEAL
+        UpdateActionButton(bHealPlayer, "Soin immédiat", "Améliorer la santé du joueur",
+            upgrades.healPlayerCost, Can(upgrades.healPlayerCost), gold);
 
-        // Player
-        tP_MaxHpCostLvl.SetTextSafe($"Lv {upgrades.levels.playerMaxHpLvl} | Cost: {upgrades.GetCost_PlayerMaxHp()}");
-        if (bP_MaxHp != null) bP_MaxHp.SetEnabled(Can(upgrades.GetCost_PlayerMaxHp()));
+        UpdateActionButton(bHealNexus, "Réparer le Nexus", "Restaure les PV du Nexus",
+            upgrades.healNexusCost, Can(upgrades.healNexusCost), gold);
 
-        tP_ArmorCostLvl.SetTextSafe($"Lv {upgrades.levels.playerArmorLvl} | Cost: {upgrades.GetCost_PlayerArmor()}");
-        if (bP_ArmorLvl != null) bP_ArmorLvl.SetEnabled(Can(upgrades.GetCost_PlayerArmor()));
+        // PLAYER
+        var costMaxHp = upgrades.GetCost_PlayerMaxHp();
+        var costArmor = upgrades.GetCost_PlayerArmor();
+        var costWeapon = upgrades.GetCost_PlayerWeapon();
 
-        tP_WeaponCostLvl.SetTextSafe($"Lv {upgrades.levels.playerWeaponLvl} | Cost: {upgrades.GetCost_PlayerWeapon()}");
-        if (bP_WeaponLvl != null) bP_WeaponLvl.SetEnabled(Can(upgrades.GetCost_PlayerWeapon()));
+        UpdateActionButton(bP_MaxHp, $"Santé max (Lv {upgrades.levels.playerMaxHpLvl + 1})", "Niveau +1", costMaxHp, Can(costMaxHp), gold);
+        UpdateActionButton(bP_ArmorLvl, $"Armure (Lv {upgrades.levels.playerArmorLvl + 1})", "Niveau +1", costArmor, Can(costArmor), gold);
+        UpdateActionButton(bP_WeaponLvl, $"Attaque (Lv {upgrades.levels.playerWeaponLvl + 1})", "Niveau +1", costWeapon, Can(costWeapon), gold);
 
-        tP_ArmorType.SetTextSafe(GetPlayerArmorType());
-        tP_DmgType.SetTextSafe(GetPlayerDamageType());
+        if (bP_ArmorType != null)
+        {
+            bP_ArmorType.SetLabel("Type d'armure");
+            bP_ArmorType.SetSub(GetPlayerArmorType());
+            bP_ArmorType.SetPrice("0 or");
+            bP_ArmorType.SetCanBuy(true);
+        }
 
-        // Nexus
-        tN_LevelVal.SetTextSafe($"Level: {upgrades.levels.nexusLevel}");
-        tN_LevelCost.SetTextSafe($"Cost: {upgrades.GetCost_NexusLevel()}");
-        if (bN_Level != null) bN_Level.SetEnabled(Can(upgrades.GetCost_NexusLevel()));
+        if (bP_DmgType != null)
+        {
+            bP_DmgType.SetLabel("Type d'attaque");
+            bP_DmgType.SetSub(GetPlayerDamageType());
+            bP_DmgType.SetPrice("0 or");
+            bP_DmgType.SetCanBuy(true);
+        }
 
-        tN_MaxHpCostLvl.SetTextSafe($"Lv {upgrades.levels.nexusMaxHpLvl} | Cost: {upgrades.GetCost_NexusMaxHp()}");
-        if (bN_MaxHp != null) bN_MaxHp.SetEnabled(Can(upgrades.GetCost_NexusMaxHp()));
+        // NEXUS
+        var costNexusLevel = upgrades.GetCost_NexusLevel();
+        var costNexusMaxHp = upgrades.GetCost_NexusMaxHp();
+        var costNexusArmor = upgrades.GetCost_NexusArmor();
 
-        tN_ArmorCostLvl.SetTextSafe($"Lv {upgrades.levels.nexusArmorLvl} | Cost: {upgrades.GetCost_NexusArmor()}");
-        if (bN_ArmorLvl != null) bN_ArmorLvl.SetEnabled(Can(upgrades.GetCost_NexusArmor()));
+        UpdateActionButton(bN_Level, $"Nexus Lv {upgrades.levels.nexusLevel + 1}", "Augmente le niveau", costNexusLevel, Can(costNexusLevel), gold);
+        UpdateActionButton(bN_MaxHp, $"Nexus PV max (Lv {upgrades.levels.nexusMaxHpLvl + 1})", "Niveau +1", costNexusMaxHp, Can(costNexusMaxHp), gold);
+        UpdateActionButton(bN_ArmorLvl, $"Nexus Armure (Lv {upgrades.levels.nexusArmorLvl + 1})", "Niveau +1", costNexusArmor, Can(costNexusArmor), gold);
 
-        tN_ArmorType.SetTextSafe(GetNexusArmorType());
+        if (bN_ArmorType != null)
+        {
+            bN_ArmorType.SetLabel("Type d'armure Nexus");
+            bN_ArmorType.SetSub(GetNexusArmorType());
+            bN_ArmorType.SetPrice("0 or");
+            bN_ArmorType.SetCanBuy(true);
+        }
 
-        // Waves (affiche les valeurs du 1er spawner)
+        // WAVES (inchangé)
         if (upgrades?.nexusSpawners != null && upgrades.nexusSpawners.Length > 0)
         {
             var sp = upgrades.nexusSpawners[0];
@@ -257,11 +205,21 @@ public class UpgradeMenuUIToolkitTabs : MonoBehaviour
                 if (sMax != null) sMax.SetValueWithoutNotify(Mathf.RoundToInt(sp.maxGiantChance * 100f));
                 if (sRamp != null) sRamp.SetValueWithoutNotify(Mathf.RoundToInt(sp.giantChanceRampPerMinute * 100f));
 
-                txtBase.SetTextSafe($"Chance de base élites: {sBase?.value ?? 0}%");
-                txtMax.SetTextSafe($"Chance max élites: {sMax?.value ?? 0}%");
-                txtRamp.SetTextSafe($"Rampe élites (%/min): {sRamp?.value ?? 0}%");
+                txtBase?.SetTextSafe($"Chance de base élites: {sBase?.value ?? 0}%");
+                txtMax?.SetTextSafe($"Chance max élites: {sMax?.value ?? 0}%");
+                txtRamp?.SetTextSafe($"Rampe élites (%/min): {sRamp?.value ?? 0}%");
             }
         }
+    }
+
+    void UpdateActionButton(StoreActionButton b, string label, string sub, int cost, bool canBuy, int gold)
+    {
+        if (b == null) return;
+        b.SetLabel(label);
+        b.SetSub(sub);
+        b.SetPrice(cost >= 0 ? $"{cost} or" : "--");
+        var missing = Mathf.Max(0, cost - gold);
+        b.SetCanBuy(canBuy, canBuy ? 0 : missing);
     }
 
     // Helpers
