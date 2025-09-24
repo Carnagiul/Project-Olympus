@@ -1,0 +1,41 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:VisualElement name="Root" class="overlay">
+        <ui:VisualElement name="Frame" class="frame">
+            <ui:Label name="Header" text="UPGRADES" class="header" style="align-self: center;" />
+            <ui:VisualElement name="Body" class="body">
+                <ui:VisualElement name="Col_Fixed" class="col">
+                    <ui:Label name="Title_Fixed" text="Fixed" class="title" />
+                    <ui:Button name="Btn_PlayerMaxHp" text="Upgrade Max HP" class="btn" />
+                    <ui:Label name="Txt_HealPlayerCost" text="Cost: 50" class="sub" />
+                    <ui:Button name="Btn_HealNexus" text="Heal Nexus" class="btn" />
+                    <ui:Label name="Txt_HealNexusCost" text="Cost: 80" class="sub" />
+                    <ui:Button name="Btn_HealPlayer" text="Heal Player" class="btn" />
+                </ui:VisualElement>
+                <ui:VisualElement name="Col_Player" class="col" style="height: 359px;">
+                    <ui:Label name="Title_Player" text="Player" class="title" style="align-self: center;" />
+                    <ui:Label name="Txt_PlayerMaxHpCostLvl" text="Lv 0 | Cost: 80" class="sub" />
+                    <ui:Button name="Btn_PlayerArmorTypeCycler" text="Armor Type" class="btn" />
+                    <ui:Label name="Txt_PlayerArmorType" text="Kevlar" class="sub" />
+                    <ui:Button name="Btn_PlayerArmorLvl" text="Upgrade Armor" class="btn" />
+                    <ui:Label name="Txt_PlayerArmorCostLvl" text="Lv 0 | Cost: 70" class="sub" />
+                    <ui:Button name="Btn_PlayerDamageTypeCycler" text="Damage Type" class="btn" />
+                    <ui:Label name="Txt_PlayerDamageType" text="Kinetic" class="sub" />
+                    <ui:Button name="Btn_PlayerWeaponLvl" text="Upgrade Weapon" class="btn" />
+                    <ui:Label name="Txt_PlayerWeaponCostLvl" text="Lv 0 | Cost: 90" class="sub" />
+                </ui:VisualElement>
+                <ui:VisualElement name="Col_Nexus" class="col">
+                    <ui:Label name="Title_Nexus" text="Nexus" class="title" style="justify-content: center; align-self: center;" />
+                    <ui:Button name="Btn_NexusLevel" text="Upgrade Nexus Level" class="btn" />
+                    <ui:Label name="Txt_NexusLevelCostLvl" text="Cost: 120" class="sub" />
+                    <ui:Label name="Txt_NexusLevelValue" text="Level: 1" class="sub" />
+                    <ui:Button name="Btn_NexusMaxHp" text="Upgrade Max HP" class="btn" />
+                    <ui:Label name="Txt_NexusMaxHpCostLvl" text="Lv 0 | Cost: 100" class="sub" />
+                    <ui:Button name="Btn_NexusArmorTypeCycler" text="Armor Type" class="btn" />
+                    <ui:Label name="Txt_NexusArmorType" text="Kevlar" class="sub" />
+                    <ui:Button name="Btn_NexusArmorLvl" text="Upgrade Armor" class="btn" />
+                    <ui:Label name="Txt_NexusArmorCostLvl" text="Lv 0 | Cost: 90" class="sub" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

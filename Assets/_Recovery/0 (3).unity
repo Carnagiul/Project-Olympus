@@ -720,15 +720,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1795668345697870094, guid: 7868f090efefa9f4d8eaf944dc7c429e, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2853561736591031515, guid: 7868f090efefa9f4d8eaf944dc7c429e, type: 3}
       propertyPath: m_Name
       value: PlayerPrefab
-      objectReference: {fileID: 0}
-    - target: {fileID: 5912124009432443476, guid: 7868f090efefa9f4d8eaf944dc7c429e, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8362642071925986512, guid: 7868f090efefa9f4d8eaf944dc7c429e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1475,7 +1471,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &433738632
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4667,101 +4663,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1790943934}
   m_CullTransparentMesh: 1
---- !u!1 &1933507698
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1933507700}
-  - component: {fileID: 1933507699}
-  m_Layer: 0
-  m_Name: UpgradeManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1933507699
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1933507698}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b98573a3943ba7041ac9663d12209962, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::UpgradeManager
-  player: {fileID: 1402461527}
-  nexus: {fileID: 1407665213}
-  nexusSpawners: []
-  healPlayerCost: 50
-  healNexusCost: 80
-  playerMaxHpCost:
-    baseCost: 80
-    stepCost: 40
-    stepMult: 1
-  playerArmorCost:
-    baseCost: 70
-    stepCost: 35
-    stepMult: 1
-  playerWeaponCost:
-    baseCost: 90
-    stepCost: 45
-    stepMult: 1
-  nexusLevelCost:
-    baseCost: 120
-    stepCost: 75
-    stepMult: 1.05
-  nexusMaxHpCost:
-    baseCost: 100
-    stepCost: 50
-    stepMult: 1
-  nexusArmorCost:
-    baseCost: 90
-    stepCost: 45
-    stepMult: 1
-  playerMaxHpCapLv: 10
-  playerArmorCapLv: 10
-  playerWeaponCapLv: 10
-  nexusCapLevel: 10
-  nexusMaxHpCapLv: 15
-  nexusArmorCapLv: 15
-  playerMaxHpPercentPerLv: 0.06
-  playerArmorFlatPerLv: 5
-  playerWeaponDamagePercentPerLv: 0.08
-  nexusMaxHpPercentPerLv: 0.08
-  nexusArmorFlatPerLv: 6
-  enableGiantSpawnsOnLevelUp: 1
-  baseGiantChancePerLevel: 0.015
-  maxGiantChancePerLevel: 0.02
-  rampPerMinutePerLevel: 0.01
-  levels:
-    playerMaxHpLvl: 0
-    playerArmorLvl: 0
-    playerWeaponLvl: 0
-    nexusLevel: 1
-    nexusMaxHpLvl: 0
-    nexusArmorLvl: 0
---- !u!4 &1933507700
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1933507698}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.36497, y: 4.06087, z: 34.37127}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1946737334
 GameObject:
   m_ObjectHideFlags: 0
@@ -5160,133 +5061,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eaff2633b244c2f4c92732c51df763a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PortalSpawner
---- !u!1 &2137404111
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2137404113}
-  - component: {fileID: 2137404112}
-  - component: {fileID: 2137404115}
-  - component: {fileID: 2137404114}
-  - component: {fileID: 2137404116}
-  m_Layer: 0
-  m_Name: UpgradeManagerUI
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &2137404112
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2137404111}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69ee1f1f5db05d447ab0e36dab4578cf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::UpgradeMenuUI
-  toggleKey: 23
-  upgrades: {fileID: 1933507699}
-  panel: {fileID: 0}
-  group: {fileID: 0}
-  btnHealPlayer: {fileID: 0}
-  txtHealPlayerCost: {fileID: 0}
-  btnHealNexus: {fileID: 0}
-  txtHealNexusCost: {fileID: 0}
-  btnPlayerMaxHp: {fileID: 0}
-  txtPlayerMaxHpCostLvl: {fileID: 0}
-  btnPlayerArmorTypeCycler: {fileID: 0}
-  txtPlayerArmorType: {fileID: 0}
-  btnPlayerArmorLvl: {fileID: 0}
-  txtPlayerArmorCostLvl: {fileID: 0}
-  btnPlayerDamageTypeCycler: {fileID: 0}
-  txtPlayerDamageType: {fileID: 0}
-  btnPlayerWeaponLvl: {fileID: 0}
-  txtPlayerWeaponCostLvl: {fileID: 0}
-  btnNexusLevel: {fileID: 0}
-  txtNexusLevelCostLvl: {fileID: 0}
-  txtNexusLevelValue: {fileID: 0}
-  btnNexusMaxHp: {fileID: 0}
-  txtNexusMaxHpCostLvl: {fileID: 0}
-  btnNexusArmorTypeCycler: {fileID: 0}
-  txtNexusArmorType: {fileID: 0}
-  btnNexusArmorLvl: {fileID: 0}
-  txtNexusArmorCostLvl: {fileID: 0}
---- !u!4 &2137404113
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2137404111}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.36497, y: 4.06087, z: 34.37127}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2137404114
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2137404111}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a5b7e1755025e944a9149a0ac3b2be1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::UpgradeMenuUIToolkit
-  upgrades: {fileID: 1933507699}
-  player: {fileID: 1402461527}
-  pauseWhenOpen: 0
---- !u!114 &2137404115
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2137404111}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.dll::UnityEngine.UIElements.UIDocument
-  m_PanelSettings: {fileID: 11400000, guid: 635b1ceb5e3adb74384d336020944741, type: 2}
-  m_ParentUI: {fileID: 0}
-  sourceAsset: {fileID: 9197481963319205126, guid: ee13cfc27f5aefd4dacf16bffbf84148, type: 3}
-  m_SortingOrder: 0
-  m_Position: 0
-  m_WorldSpaceSizeMode: 1
-  m_WorldSpaceWidth: 1920
-  m_WorldSpaceHeight: 1080
-  m_PivotReferenceSize: 0
-  m_Pivot: 0
-  m_WorldSpaceCollider: {fileID: 0}
---- !u!114 &2137404116
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2137404111}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f9d0d6826ed2c246af8833dde418b3e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::UpgradeMenuUIToolkitTabs
-  upgrades: {fileID: 1933507699}
-  player: {fileID: 1402461527}
-  pauseWhenOpen: 0
 --- !u!1001 &143962017606834307
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5314,7 +5088,7 @@ PrefabInstance:
     - target: {fileID: 528080001662283440, guid: a42c21f0f5675a747bce5f6d22019c7d, type: 3}
       propertyPath: monsterPrefab
       value: 
-      objectReference: {fileID: 2853561736591031515, guid: e2702c28d6c60ed4198f02f594f9ec6c, type: 3}
+      objectReference: {fileID: 2853561736591031515, guid: d7ef88e0e10a27a469c21c06234bf91b, type: 3}
     - target: {fileID: 3256514098970867944, guid: a42c21f0f5675a747bce5f6d22019c7d, type: 3}
       propertyPath: m_Name
       value: Portal
@@ -5383,5 +5157,3 @@ SceneRoots:
   - {fileID: 240386431}
   - {fileID: 613347977}
   - {fileID: 24024146}
-  - {fileID: 1933507700}
-  - {fileID: 2137404113}

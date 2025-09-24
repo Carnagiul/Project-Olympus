@@ -13,7 +13,9 @@ public class EntityStatsAsset : ScriptableObject
 
     [Header("Offense")]
     [Min(0f)] public float baseDamage = 15f;
+    [Min(0f)] public float damage = 15f;
     public DamageType damageType = DamageType.Kinetic;
+
 
     [Header("Range & Attack")]
     [Tooltip("Distance maximale d’attaque (mètres).")]
@@ -24,4 +26,9 @@ public class EntityStatsAsset : ScriptableObject
 
     [Tooltip("Vitesse des projectiles si utilisé (m/s). 0 = instantané (hitscan).")]
     [Min(0f)] public float projectileSpeed = 0f;
+
+    public void Awake()
+    {
+        damage = baseDamage;
+    }
 }

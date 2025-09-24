@@ -1,0 +1,58 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/Scripts/GUI/UpgradeTabs.uss?fileID=7433441132597879392&amp;guid=0ccd48ff417b3ee4ab5758e229c7f88a&amp;type=3#UpgradeTabs" />
+    <ui:VisualElement name="Root" class="overlay">
+        <ui:VisualElement name="Frame" class="frame">
+            <ui:Label name="Header" text="UPGRADES" class="header" />
+            <ui:VisualElement name="TabBar" class="tabbar">
+                <ui:Button name="Tab_Player" text="Mon Personnage" class="tab tab--active" />
+                <ui:Button name="Tab_Nexus" text="Nexus" class="tab" />
+                <ui:Button name="Tab_Waves" text="Vagues" class="tab" />
+            </ui:VisualElement>
+            <ui:VisualElement name="Tabs" class="tabs">
+                <ui:VisualElement name="TabContent_Player" class="tabcontent tabcontent--active" style="display: none;">
+                    <ui:Label text="Joueur" class="title" />
+                    <ui:Button name="Btn_PlayerMaxHp" text="Améliorer PV Max" class="btn" />
+                    <ui:Label name="Txt_PlayerMaxHpCostLvl" text="Lv 0 | Cost: 80" class="sub" />
+                    <ui:Button name="Btn_PlayerArmorTypeCycler" text="Changer type d&apos;armure" class="btn" />
+                    <ui:Label name="Txt_PlayerArmorType" text="Kevlar" class="sub" />
+                    <ui:Button name="Btn_PlayerArmorLvl" text="Améliorer armure" class="btn" />
+                    <ui:Label name="Txt_PlayerArmorCostLvl" text="Lv 0 | Cost: 70" class="sub" />
+                    <ui:Button name="Btn_PlayerDamageTypeCycler" text="Changer type dégâts" class="btn" />
+                    <ui:Label name="Txt_PlayerDamageType" text="Kinetic" class="sub" />
+                    <ui:Button name="Btn_PlayerWeaponLvl" text="Améliorer arme" class="btn" />
+                    <ui:Label name="Txt_PlayerWeaponCostLvl" text="Lv 0 | Cost: 90" class="sub" />
+                    <ui:VisualElement class="sep" />
+                    <ui:Button name="Btn_HealPlayer" text="Soigner le joueur (prix fixe)" class="btn btn--secondary" />
+                    <ui:Label name="Txt_HealPlayerCost" text="Cost: 50" class="sub" />
+                </ui:VisualElement>
+                <ui:VisualElement name="TabContent_Nexus" class="tabcontent" style="display: none;">
+                    <ui:Label text="Nexus" class="title" />
+                    <ui:Button name="Btn_NexusLevel" text="Améliorer niveau du Nexus" class="btn" />
+                    <ui:Label name="Txt_NexusLevelCostLvl" text="Cost: 120" class="sub" />
+                    <ui:Label name="Txt_NexusLevelValue" text="Level: 1" class="sub" />
+                    <ui:Button name="Btn_NexusMaxHp" text="Améliorer PV Max" class="btn" />
+                    <ui:Label name="Txt_NexusMaxHpCostLvl" text="Lv 0 | Cost: 100" class="sub" />
+                    <ui:Button name="Btn_NexusArmorTypeCycler" text="Changer type d&apos;armure" class="btn" />
+                    <ui:Label name="Txt_NexusArmorType" text="Kevlar" class="sub" />
+                    <ui:Button name="Btn_NexusArmorLvl" text="Améliorer armure" class="btn" />
+                    <ui:Label name="Txt_NexusArmorCostLvl" text="Lv 0 | Cost: 90" class="sub" />
+                    <ui:VisualElement class="sep" />
+                    <ui:Button name="Btn_HealNexus" text="Soigner le Nexus (prix fixe)" class="btn btn--secondary" />
+                    <ui:Label name="Txt_HealNexusCost" text="Cost: 80" class="sub" />
+                </ui:VisualElement>
+                <ui:VisualElement name="TabContent_Waves" class="tabcontent" style="display: none;">
+                    <ui:Label text="Vagues" class="title" />
+                    <ui:Toggle name="Tgl_Giants" text="Activer élites (Giants)" class="toggle" />
+                    <ui:SliderInt name="Sld_BaseGiantChance" low-value="0" high-value="100" class="slider" />
+                    <ui:Label name="Txt_BaseGiantChance" text="Chance de base élites: 0%" class="sub" />
+                    <ui:SliderInt name="Sld_MaxGiantChance" low-value="0" high-value="100" class="slider" />
+                    <ui:Label name="Txt_MaxGiantChance" text="Chance max élites: 0%" class="sub" />
+                    <ui:SliderInt name="Sld_GiantRamp" low-value="0" high-value="100" class="slider" />
+                    <ui:Label name="Txt_GiantRamp" text="Rampe élites (%/min): 0%" class="sub" />
+                    <ui:VisualElement class="sep" />
+                    <ui:Label text="(Ces contrôles pilotent PortalSpawner[] du Nexus)" class="sub" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
