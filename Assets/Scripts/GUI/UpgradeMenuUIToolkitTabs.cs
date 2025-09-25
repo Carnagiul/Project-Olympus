@@ -247,15 +247,6 @@ public class UpgradeMenuUIToolkitTabs : MonoBehaviour
         return ec ? ec.DamageType.ToString() : "-";
     }
 
-    void CyclePlayerArmorType()
-    {
-        var s = upgrades?.player?.GetComponent<EntityStats>();
-        if (!s) return;
-        var vals = System.Enum.GetValues(typeof(EntityStatsAsset.ArmorType));
-        int idx = (System.Array.IndexOf(vals, s.preset.armorType) + 1) % vals.Length;
-        upgrades?.Change_PlayerArmorType((EntityStatsAsset.ArmorType)vals.GetValue(idx));
-    }
-
     void CycleNexusArmorType()
     {
         var s = upgrades?.nexus?.GetComponent<EntityStats>();
@@ -265,12 +256,22 @@ public class UpgradeMenuUIToolkitTabs : MonoBehaviour
         upgrades?.Change_NexusArmorType((EntityStatsAsset.ArmorType)vals.GetValue(idx));
     }
 
+
+    void CyclePlayerArmorType()
+    {
+        var s = upgrades?.player?.GetComponent<EntityStats>();
+        if (!s) return;
+        var vals = System.Enum.GetValues(typeof(EntityStatsAsset.ArmorType));
+        int idx = (System.Array.IndexOf(vals, s.preset.armorType) + 1) % vals.Length;
+        upgrades?.Change_PlayerArmorType((EntityStatsAsset.ArmorType)vals.GetValue(idx));
+    }
+
     void CyclePlayerDamageType()
     {
-        var ec = upgrades?.player?.GetComponent<EntityController>();
-        if (!ec) return;
+        var s = upgrades?.player?.GetComponent<EntityStats>();
+        if (!s) return;
         var vals = System.Enum.GetValues(typeof(EntityStatsAsset.DamageType));
-        int idx = (System.Array.IndexOf(vals, ec.DamageType) + 1) % vals.Length;
+        int idx = (System.Array.IndexOf(vals, s.preset.damageType) + 1) % vals.Length;
         upgrades?.Change_PlayerDamageType((EntityStatsAsset.DamageType)vals.GetValue(idx));
     }
 }
