@@ -1,0 +1,8 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+  <ui:Style src="TopNavbar.uss" />
+  <ui:VisualElement name="TopNavbar" class="topbar">
+    <ui:VisualElement name="Section_Left" class="section" />
+    <ui:VisualElement name="Section_Center" class="section center" />
+    <ui:VisualElement name="Section_Right" class="section" />
+  </ui:VisualElement>
+</ui:UXML>

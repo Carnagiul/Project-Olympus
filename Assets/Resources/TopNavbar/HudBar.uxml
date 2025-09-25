@@ -1,0 +1,4 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/Resources/TopNavbar/HudBar.uss?fileID=7433441132597879392&amp;guid=72ca09a7cbe09d04aa1cdc674e356261&amp;type=3#HudBar" />
+    <Assets.Scripts.UI.HudBar name="HudBar" uss="project://database/Assets/Resources/TopNavbar/HudBar.uss?fileID=7433441132597879392&amp;guid=72ca09a7cbe09d04aa1cdc674e356261&amp;type=3#HudBar" />
+</ui:UXML>

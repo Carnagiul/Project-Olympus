@@ -1,0 +1,92 @@
+/* --- Top Navbar --- */
+.topbar {
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 64px;
+  flex-direction: row;
+  align-items: center;
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: rgba(17,24,39,0.78);
+  border-bottom-color: rgba(255,255,255,0.08);
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+}
+.section {
+  flex-direction: row;
+  align-items: center;
+  margin-right: 12px;
+}
+.section.center {
+  flex-grow: 1;
+  justify-content: center;
+  margin-left: 14px;
+  margin-right: 14px;
+}
+
+/* Slot helpers */
+.slot-left   { margin-right: auto; }
+.slot-center { margin-left: auto; margin-right: auto; }
+.slot-right  { margin-left: auto; }
+
+/* --- LocationPill --- */
+.locpill{
+  flex-direction: row;
+  align-items: center;
+  padding-left: 10px; padding-right: 10px;
+  padding-top: 6px; padding-bottom: 6px;
+  border-radius: 999px;
+  border-width: 1px;
+  border-color: rgba(255,255,255,0.10);
+  background-color: rgba(255,255,255,0.04);
+}
+.locpill__icon{
+  width:20px; height:20px; border-radius:8px;
+  align-items:center; justify-content:center;
+  border-width:1px; border-color: rgba(255,255,255,0.12);
+  background-color: rgba(255,255,255,0.08);
+}
+.locpill__label{ font-size:12px; color:#e5e7eb; }
+.locpill__sub{ font-size:11px; color:#9ca3af; }
+
+/* --- GoldPill --- */
+.goldpill{
+  flex-direction: row;
+  align-items: center;
+  padding-left: 10px; padding-right: 10px;
+  padding-top: 6px; padding-bottom: 6px;
+  border-radius: 999px;
+  border-width: 1px;
+  border-color: rgba(251,191,36,0.35);
+  background-color: rgba(251,191,36,0.10);
+}
+.goldpill__icon{
+  width:18px; height:18px; border-radius:50%;
+  align-items:center; justify-content:center;
+  border-width:1px; border-color: rgba(251,191,36,0.45);
+  background-color: rgba(251,191,36,0.85);
+  color:#111827; unity-font-style:bold;
+}
+.goldpill__amount{ color:#fde68a; unity-font-style:bold; font-size:12px; }
+
+/* --- HudBar (HP/Mana/Endu) --- */
+.hudbar{
+  flex-direction: row;
+  align-items: center;
+  padding-left: 10px; padding-right: 10px;
+  padding-top: 6px; padding-bottom: 6px;
+  border-radius: 12px;
+  border-width: 1px;
+  border-color: rgba(255,255,255,0.08);
+  background-color: rgba(255,255,255,0.04);
+}
+.hudbar__label{ font-size:12px; color:#cbd5e1; margin-right: 8px; }
+.hudbar__track{
+  width:120px; height:8px; border-radius:999px;
+  border-width:1px; border-color: rgba(255,255,255,0.12);
+}
+.hudbar__fill{ height:100%; border-radius:999px; }
+.hudbar--hp .hudbar__fill{ background-color:#ef4444; }
+.hudbar--mana .hudbar__fill{ background-color:#3b82f6; }
+.hudbar--endu .hudbar__fill{ background-color:#10b981; }

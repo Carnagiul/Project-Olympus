@@ -1,0 +1,5 @@
+.goldpill{ display:flex; align-items:center; gap:8px; padding:6px 10px; border-radius:999px;
+  border-width:1px; border-color: rgba(251,191,36,0.35); background-color: rgba(251,191,36,0.10); }
+.goldpill__icon{ width:18px; height:18px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+  border-width:1px; border-color: rgba(251,191,36,0.45); background-color: rgba(251,191,36,0.85); color:#111827; unity-font-style:bold; }
+.goldpill__amount{ color:#fde68a; unity-font-style:bold; font-size:12px; }
