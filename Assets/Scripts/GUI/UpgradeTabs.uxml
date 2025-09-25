@@ -1,16 +1,19 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:app="Assets.Scripts.UI.Store" editor-extension-mode="False">
     <Style src="project://database/Assets/Resources/StoreActionButton.uss?fileID=7433441132597879392&amp;guid=fe52b1d45a848934d918af0dd72422f6&amp;type=3#StoreActionButton" />
+    <Style src="project://database/Assets/Resources/UpgradeTabs.uss?fileID=7433441132597879392&amp;guid=a9785403a853aaa4396063e353cb9bb1&amp;type=3#UpgradeTabs" />
     <ui:VisualElement name="Root" class="overlay">
         <ui:VisualElement name="Frame" class="frame">
-            <ui:Label name="Header" text="UPGRADES" class="header" />
-            <ui:VisualElement name="TabBar" class="tabbar">
-                <ui:Button name="Tab_Player" text="Mon Personnage" class="tab tab--active" />
+            <ui:Label name="Header" text="UPGRADES" class="header" style="white-space: normal; -unity-text-align: upper-center; background-color: rgb(0, 0, 0); color: rgb(255, 255, 255);" />
+            <ui:VisualElement name="TabBar" class="tabbar" style="justify-content: center;">
+                <ui:Button name="Tab_Player" class="tab tab--active">
+                    <ui:Label text="👤 Mon Personnage" />
+                </ui:Button>
                 <ui:Button name="Tab_Nexus" text="Nexus" class="tab" />
                 <ui:Button name="Tab_Waves" text="Vagues" class="tab" />
             </ui:VisualElement>
             <ui:VisualElement name="Tabs" class="tabs">
                 <ui:VisualElement name="TabContent_Player" class="tabcontent tabcontent--active" style="display: flex;">
-                    <ui:Label text="Joueur" class="title" />
+                    <ui:Label text="Joueur" class="title" style="align-self: center;" />
                     <app:StoreActionButton name="Btn_PlayerMaxHp" label="Améliorer PV Max" sub="Niveau +1" price="--" icon="❤" canBuy="false" uss="project://database/Assets/Resources/StoreActionButton.uss?fileID=7433441132597879392&amp;guid=fe52b1d45a848934d918af0dd72422f6&amp;type=3#StoreActionButton" uxml="project://database/Assets/Resources/StoreActionButton.uxml?fileID=9197481963319205126&amp;guid=1e0e48da0271bff48b78aa88cc05700f&amp;type=3#StoreActionButton" />
                     <app:StoreActionButton name="Btn_PlayerArmorTypeCycler" label="Type d&apos;armure" sub="Kevlar" price="0 or" icon="🛡️" canBuy="true" uss="project://database/Assets/Resources/StoreActionButton.uss?fileID=7433441132597879392&amp;guid=fe52b1d45a848934d918af0dd72422f6&amp;type=3#StoreActionButton" uxml="project://database/Assets/Resources/StoreActionButton.uxml?fileID=9197481963319205126&amp;guid=1e0e48da0271bff48b78aa88cc05700f&amp;type=3#StoreActionButton" />
                     <app:StoreActionButton name="Btn_PlayerArmorLvl" label="Améliorer armure" sub="Niveau +1" price="--" icon="🛡️" canBuy="false" uss="project://database/Assets/Resources/StoreActionButton.uss?fileID=7433441132597879392&amp;guid=fe52b1d45a848934d918af0dd72422f6&amp;type=3#StoreActionButton" uxml="project://database/Assets/Resources/StoreActionButton.uxml?fileID=9197481963319205126&amp;guid=1e0e48da0271bff48b78aa88cc05700f&amp;type=3#StoreActionButton" />

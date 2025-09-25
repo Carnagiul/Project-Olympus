@@ -127,7 +127,13 @@ public class UpgradeMenuUIToolkitTabs : MonoBehaviour
         SetTabContent(tcWaves, idx == 2);
     }
 
-    void SetTabClass(Button b, bool active) { if (b != null) b.EnableInClassList("tab--active", active); }
+    void SetTabClass(Button b, bool active)
+    {
+        if (b == null) return;
+        b.EnableInClassList("tab--active", active);
+        b.SetEnabled(!active); // optionnel: évite de recliquer l’onglet actif
+        if (active) b.Focus();
+    }
     void SetTabContent(VisualElement ve, bool active)
     {
         if (ve == null) return;
