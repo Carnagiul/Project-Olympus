@@ -318,8 +318,6 @@ MonoBehaviour:
   respawnDelaySeconds: 3
   hideRenderersDuringRespawn: 1
   disableDuringRespawn: []
-  GoldPrice: 0
-  GoldDrop: 0
   statusText: {fileID: 1462916304311661925}
   goldText: {fileID: 5999523251341066358}
   pivotMode: 0
@@ -422,7 +420,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7610d6a1d9627c442825fb2f11daf524, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GoldWallet
-  gold: 0
+  gold: 250
   OnGoldChanged:
     m_PersistentCalls:
       m_Calls: []

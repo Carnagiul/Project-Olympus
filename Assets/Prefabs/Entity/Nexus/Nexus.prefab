@@ -63,8 +63,6 @@ MonoBehaviour:
   respawnDelaySeconds: 3
   hideRenderersDuringRespawn: 1
   disableDuringRespawn: []
-  GoldPrice: 0
-  GoldDrop: 0
   OnNexusDestroyed:
     m_PersistentCalls:
       m_Calls: []
@@ -80,8 +78,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a97bfb74567605d49bd0aa068c6be33b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Health
-  maxHealth: 100
-  currentHealth: -1
+  maxHealth: 5000
+  currentHealth: 5000
   OnHealthChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -109,6 +107,11 @@ MonoBehaviour:
   preset: {fileID: 11400000, guid: 572fa5a08c5c63544bc398baf132c605, type: 2}
   damageMultiplier: 1
   armorBonus: 0
+  rangeMultiplier: 1
+  cooldownMultiplier: 1
+  OnPresetChanged:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &4834874348089995903
 MonoBehaviour:
   m_ObjectHideFlags: 0

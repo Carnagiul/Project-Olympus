@@ -14,9 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EntityStatsAsset
   maxHealth: 100
   armor: 5
-  armorType: 1
+  armorType: 5
   baseDamage: 15
+  damage: 15
   damageType: 0
   attackRange: 50
-  attackCooldown: 0.6
+  attackCooldown: 1
   projectileSpeed: 0

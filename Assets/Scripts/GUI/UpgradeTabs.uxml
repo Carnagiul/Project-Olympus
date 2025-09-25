@@ -8,8 +8,12 @@
                 <ui:Button name="Tab_Player" class="tab tab--active">
                     <ui:Label text="👤 Mon Personnage" />
                 </ui:Button>
-                <ui:Button name="Tab_Nexus" text="Nexus" class="tab" />
-                <ui:Button name="Tab_Waves" text="Vagues" class="tab" />
+               <ui:Button name="Tab_Nexus" class="tab">
+                    <ui:Label text="Nexus" />
+                </ui:Button>
+               <ui:Button name="Tab_Waves" class="tab">
+                    <ui:Label text="Vagues" />
+                </ui:Button>
             </ui:VisualElement>
             <ui:VisualElement name="Tabs" class="tabs">
                 <ui:VisualElement name="TabContent_Player" class="tabcontent tabcontent--active" style="display: flex;">
