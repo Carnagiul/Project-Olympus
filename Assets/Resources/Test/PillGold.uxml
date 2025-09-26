@@ -1,0 +1,63 @@
+<UXML xmlns="UnityEngine.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/Resources/Test/Pills.uss?fileID=7433441132597879392&amp;guid=d383f59b1586e1344a9f2f2043c5f5cb&amp;type=3#Pills" />
+    <VisualElement class="topbar">
+        <VisualElement class="section">
+            <VisualElement class="avatar">
+                <Label text="🧭" />
+            </VisualElement>
+            <VisualElement class="label" style="flex-direction: row; align-items: center;">
+                <Label text="Forêt des Ombres" />
+                <Label text=" • " class="muted" />
+                <Label text="Zone 3" class="muted" />
+            </VisualElement>
+            <VisualElement class="sep" />
+            <VisualElement class="pill pill--gold">
+                <Label text="💰" />
+                <Label text="900000" class="label" />
+                <Label text="or" class="muted" />
+            </VisualElement>
+        </VisualElement>
+        <VisualElement class="section" style="flex-grow: 1;">
+            <VisualElement class="pill pill--prog pill--hp">
+                <VisualElement class="pill__left">
+                    <Label text="❤" class="label" />
+                    <Label text="HP" class="pill__title" />
+                </VisualElement>
+                <VisualElement class="pill__bar">
+                    <VisualElement name="hp-fill" class="pill__fill" />
+                </VisualElement>
+                <Label name="hp-val" text="72%" class="pill__val" />
+            </VisualElement>
+            <VisualElement class="pill pill--prog pill--mana">
+                <VisualElement class="pill__left">
+                    <Label text="✦" class="label" />
+                    <Label text="Mana" class="pill__title" />
+                </VisualElement>
+                <VisualElement class="pill__bar">
+                    <VisualElement name="mana-fill" class="pill__fill" />
+                </VisualElement>
+                <Label name="mana-val" text="45%" class="pill__val" />
+            </VisualElement>
+            <VisualElement class="pill pill--prog pill--sta">
+                <VisualElement class="pill__left">
+                    <Label text="⚡" class="label" />
+                    <Label text="Endu" class="pill__title" />
+                </VisualElement>
+                <VisualElement class="pill__bar">
+                    <VisualElement name="sta-fill" class="pill__fill" />
+                </VisualElement>
+                <Label name="sta-val" text="83%" class="pill__val" />
+            </VisualElement>
+        </VisualElement>
+        <VisualElement class="section">
+            <VisualElement class="pill">
+                <Label text="⏱️" />
+                <Label text="12:34 | J2 - Crépuscule" class="muted" />
+            </VisualElement>
+            <VisualElement class="pill">
+                <Label text="📶" />
+                <Label text="42 ms" class="muted" />
+            </VisualElement>
+        </VisualElement>
+    </VisualElement>
+</UXML>

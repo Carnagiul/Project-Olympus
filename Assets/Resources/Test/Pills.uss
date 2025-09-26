@@ -1,0 +1,101 @@
+﻿/* ====== Conteneurs ====== */
+.topbar {
+    height: 64px;
+    padding-left: 16px; padding-right: 16px;
+    padding-top: 10px;  padding-bottom: 10px;
+    background-color: rgba(17, 24, 39, 0.85);
+    border-bottom-width: 1px;
+    border-bottom-color: rgba(255, 255, 255, 0.08);
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.section { flex-direction: row; align-items: center; }
+.section > * { margin-right: 12px; }       /* remplace gap */
+.section > *:last-child { margin-right: 0; }
+
+.sep {
+    width: 1px; height: 28px;
+    background-color: rgba(255, 255, 255, 0.08);
+    margin-left: 12px; margin-right: 12px;
+}
+
+.label { color: #e5e7eb; }
+.muted { color: #9ca3af; }
+
+.avatar {
+    width: 32px; height: 32px;
+    border-top-left-radius: 16px; border-top-right-radius: 16px;
+    border-bottom-left-radius: 16px; border-bottom-right-radius: 16px;
+    border-width: 1px; border-color: rgba(255,255,255,0.08);
+    background-color: #0b1220;
+    align-items: center; justify-content: center;
+}
+
+/* ====== Pill de base (auto-width) ====== */
+.pill {
+    flex-direction: row;
+    align-items: center;
+
+    /* padding + bordures */
+    border-width: 1px;
+    border-color: rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    background-color: rgba(255, 255, 255, 0.03);
+    color: #e5e7eb;
+
+    /* 🟢 Auto-width */
+    width: auto;      /* (facultatif, c’est la valeur par défaut) */
+    flex-grow: 0;     /* ne s’étire pas */
+    flex-shrink: 0;   /* ne se compresse pas (garde la taille du contenu) */
+    flex-basis: auto; /* taille basée sur le contenu */
+}
+
+.pill--gold {
+    border-color: rgba(251, 191, 36, 0.35);
+    background-color: rgba(251, 191, 36, 0.08);
+    color: #fde68a;
+}
+
+/* ====== Pills avec jauge ====== */
+.pill--prog {
+    /* reste en auto-width sauf pour la barre qui est fixe */
+}
+
+/* Conteneur de jauge (fixe) */
+.pill__bar {
+    width: 120px;             /* ⛓️ fixe */
+    height: 8px;
+    border-top-left-radius: 999px; border-top-right-radius: 999px;
+    border-bottom-left-radius: 999px; border-bottom-right-radius: 999px;
+    border-width: 1px; border-color: rgba(255, 255, 255, 0.08);
+    background-color: rgba(255, 255, 255, 0.06);
+    overflow: hidden;
+    position: relative;
+
+    /* petit espace à gauche/droite des labels */
+    margin-left: 8px; margin-right: 8px;
+}
+
+/* Remplissage (piloté en C#) */
+.pill__fill {
+    position: absolute; left: 0; top: 0; bottom: 0;
+    width: 50%; /* changée à runtime */
+    background-color: #6366f1; /* fallback */
+}
+
+/* Titres/valeurs */
+.pill__title { color: #e5e7eb; }
+.pill__val   { color: #9ca3af; }
+
+/* Variantes couleur pour la fill */
+.pill--hp   .pill__fill { background-color: #ef4444; }
+.pill--mana .pill__fill { background-color: #3b82f6; }
+.pill--sta  .pill__fill { background-color: #10b981; }
+
+/* ====== Alignements utiles ====== */
+.pill__left  { flex-direction: row; align-items: center; }
+.pill__right { flex-direction: row; align-items: center; }
+.pill__left  > * { margin-right: 6px; }
+.pill__left  > *:last-child { margin-right: 0; }
