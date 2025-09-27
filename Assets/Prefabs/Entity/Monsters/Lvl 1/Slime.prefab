@@ -339,7 +339,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 004e9f522e47c0046be130a9ce9f856c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EntityStats
-  preset: {fileID: 11400000, guid: 328f7002ff431f542bcfbf6f5a1dd3c9, type: 2}
+  preset: {fileID: 11400000, guid: 8356acc3df2d07841b50ea5d1092e137, type: 2}
   damageMultiplier: 1
   armorBonus: 0
   rangeMultiplier: 1

@@ -1,8 +1,0 @@
-﻿<ui:UXML xmlns:ui="UnityEngine.UIElements">
-  <ui:Style src="LocationPill.uss" />
-  <ui:VisualElement name="LocationPill" class="locpill">
-    <ui:Label name="Icon" class="locpill__icon" text="🧭" />
-    <ui:Label name="Label" class="locpill__label" text="Forêt des Ombres" />
-    <ui:Label name="Sub" class="locpill__sub" text="Zone 3" />
-  </ui:VisualElement>
-</ui:UXML>

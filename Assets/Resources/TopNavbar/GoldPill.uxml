@@ -1,7 +1,0 @@
-﻿<ui:UXML xmlns:ui="UnityEngine.UIElements">
-  <ui:Style src="GoldPill.uss" />
-  <ui:VisualElement name="GoldPill" class="goldpill">
-    <ui:Label name="Icon" class="goldpill__icon" text="●" />
-    <ui:Label name="Amount" class="goldpill__amount" text="0" />
-  </ui:VisualElement>
-</ui:UXML>

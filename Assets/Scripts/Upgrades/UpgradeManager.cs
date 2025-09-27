@@ -228,6 +228,17 @@ public class UpgradeManager : MonoBehaviour
 
         levels.nexusLevel++;
 
+
+        if (player != null)
+        {
+            if (player.NexusController != null)
+            {
+                player.NexusController.NexusLevel += 1;
+                Debug.Log("Nexus level increased to " + player.NexusController.NexusLevel);
+                player.NexusController?.Team?.updateNexusLevel(player.NexusController.NexusLevel);
+            }
+        }
+
         // Impacte les spawners (vagues envoyées)
         foreach (var sp in nexusSpawners)
         {

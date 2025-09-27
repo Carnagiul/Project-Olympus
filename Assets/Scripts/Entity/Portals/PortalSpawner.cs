@@ -3,7 +3,7 @@ using UnityEngine;
 public class PortalSpawner : MonoBehaviour
 {
     [Header("Spawn")]
-    [SerializeField] private GameObject monsterPrefab;
+    [SerializeField] public GameObject monsterPrefab;
     [SerializeField, Min(0f)] private float spawnInterval = 5f;
     [SerializeField] private int maxSpawn = -1;
     [SerializeField] private Transform spawnPoint;
@@ -79,8 +79,11 @@ public class PortalSpawner : MonoBehaviour
 
         // cible Nexus correcte (méthode 2)
         var mc = go.GetComponentInChildren<MonsterController>();
-        if (mc && targetTeam) mc.SetTargetTeam(targetTeam);
-
+        if (mc && targetTeam) {
+            mc.SetTargetTeam(targetTeam);
+            if (targetTeam?.nexus != null)
+                mc.SetTarget(targetTeam.nexus.transform);
+        }
         // géant
         if (spawnAsGiant)
         {

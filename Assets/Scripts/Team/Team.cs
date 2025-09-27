@@ -9,10 +9,65 @@ public class Team : MonoBehaviour
     public Color teamColor = Color.white;
 
     [Header("Structure")]
-    public NexusController nexus;                          // Le Nexus de l’équipe
+    public NexusController nexus;                                   // Le Nexus de l’équipe
+
+
     public List<GameObject> players = new();         // Tes composants joueurs (FPS)
     public List<PortalSpawner> portals = new();      // Portails “sortants” vers les ennemis
+    
+    public List<PortalSpawner> recievePortals = new();      // Portails “Monsters” des ennemis
 
+    [SerializeField] private List<GameObject> monsters = new();
+    private void Start()
+    {
+        if (nexus != null)
+        {
+            //nexus.Team = this;
+            nexus.OnNexusLevelChanged.AddListener(OnNexusLevelChanged);
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (nexus != null)
+        {
+            nexus.OnNexusLevelChanged.RemoveListener(OnNexusLevelChanged);
+        }
+    }
+
+    public void updateNexusLevel(int level)
+    {
+        if (nexus != null)
+        {
+            nexus.NexusLevel = level;
+        }
+
+        if (level <= 1)
+            recievePortals?.ForEach(p =>
+            {
+                p.monsterPrefab = monsters[0];
+            });
+        else if (level >= monsters.Count)
+        {
+            recievePortals?.ForEach(p =>
+            {
+                p.monsterPrefab = monsters[monsters.Count - 1];
+            });
+        }
+        else
+        {
+            recievePortals?.ForEach(p =>
+            {
+                p.monsterPrefab = monsters[level - 1];
+            });
+        }
+    }
+
+    public void OnNexusLevelChanged(int level)
+    {
+        Debug.Log("Detect an change");
+        updateNexusLevel(level);
+    }
     // Utilitaire rapide
     public IEnumerable<Team> GetEnemyTeams()
     {
@@ -30,4 +85,6 @@ public class Team : MonoBehaviour
         portals.Add(ps);
         return ps;
     }
+
+
 }

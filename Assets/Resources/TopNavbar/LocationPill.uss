@@ -1,6 +1,0 @@
-.locpill{ display:flex; align-items:center; gap:8px; padding:6px 10px; border-radius:999px;
-  border-width:1px; border-color: rgba(255,255,255,0.10); background-color: rgba(255,255,255,0.04); }
-.locpill__icon{ width:20px; height:20px; border-radius:8px; display:flex; align-items:center; justify-content:center;
-  border-width:1px; border-color: rgba(255,255,255,0.12); background-color: rgba(255,255,255,0.08); }
-.locpill__label{ font-size:12px; color:#e5e7eb; }
-.locpill__sub{ font-size:11px; color:#9ca3af; }

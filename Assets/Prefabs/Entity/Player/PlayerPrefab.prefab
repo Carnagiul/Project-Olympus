@@ -346,6 +346,7 @@ MonoBehaviour:
   equippedWeapon: {fileID: 5848334868417724106}
   playerCamera: {fileID: 1224660593960158096}
   goldWallet: {fileID: 1761431243490986745}
+  topBarHUD: {fileID: 0}
 --- !u!114 &1207186564056622218
 MonoBehaviour:
   m_ObjectHideFlags: 0

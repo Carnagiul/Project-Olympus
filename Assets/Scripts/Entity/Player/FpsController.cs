@@ -9,7 +9,7 @@ public class FpsController : EntityController
 
     [Header("Canvas")]
     [SerializeField] private TMP_Text statusText; // TextMeshPro ou TextMeshProUGUI
-    [SerializeField] private TMP_Text goldText;   // TextMeshPro ou TextMeshProUGUI
+    //[SerializeField] private TMP_Text goldText;   // TextMeshPro ou TextMeshProUGUI
 
     [Header("Capsule/Pivot")]
     public PivotMode pivotMode = PivotMode.Feet; // Choisis selon ton pivot objet
@@ -69,6 +69,12 @@ public class FpsController : EntityController
     [Header("Gold")]
     [SerializeField] private GoldWallet goldWallet; // composant portefeuille d’or
 
+    [Header("HUD")]
+    [SerializeField] private TopbarHUD topBarHUD; // composant portefeuille d’or
+
+
+    public NexusController NexusController; // Référence au NexusController
+
     // Exposés pour la caméra (headbob/FOV)
     public float CurrentPlanarSpeed01 { get; private set; } // 0..1 par rapport au sprint
     public bool IsGroundedForCamera => isOnGround;
@@ -109,18 +115,49 @@ public class FpsController : EntityController
             // push initial
             OnGoldChanged(goldWallet.Amount);
         }
+
+        if (Health != null)
+        {
+            Health.OnHealthChanged.AddListener(OnHealthChanged);
+            OnHealthChanged(Health.Current, Health.Max);
+        }
+
+        if (NexusController != null && NexusController.Health != null)
+        {
+            NexusController.Health.OnHealthChanged.AddListener(OnNexusHealthChanged);
+            OnNexusHealthChanged(NexusController.Health.Current, NexusController.Health.Max);
+        }
     }
+
+
 
     private void OnDestroy()
     {
         if (goldWallet != null)
             goldWallet.OnGoldChanged.RemoveListener(OnGoldChanged);
+        if (Health != null)
+            Health.OnHealthChanged.RemoveListener(OnHealthChanged);
+        if (NexusController != null && NexusController.Health != null)
+            NexusController.Health.OnHealthChanged.RemoveListener(OnNexusHealthChanged);
     }
 
     private void OnGoldChanged(int amount)
     {
-        if (goldText != null)
-            goldText.text = $"Gold : {amount}";
+        topBarHUD.SetGold(amount);
+        //if (goldText != null)
+        //    goldText.text = $"Gold : {amount}";
+    }
+
+    private new void OnHealthChanged(float current, float max)
+    {
+        if (topBarHUD != null)
+            topBarHUD.SetMana(current / max, 0.01f);
+    }
+
+    private void OnNexusHealthChanged(float current, float max)
+    {
+        if (topBarHUD != null)
+            topBarHUD.SetHp(current / max, 0.01f);
     }
 
     void Update()
@@ -250,16 +287,16 @@ public class FpsController : EntityController
             {
                 if (shot.hit)
                 {
-                    Debug.Log($"HIT {shot.target?.name} à {shot.point} pour {shot.damageApplied} dmg");
+                    //Debug.Log($"HIT {shot.target?.name} à {shot.point} pour {shot.damageApplied} dmg");
                 }
                 else
                 {
-                    Debug.Log("Miss");
+                    //Debug.Log("Miss");
                 }
             }
             else
             {
-                Debug.Log($"Cooldown… {equippedWeapon.CooldownRemaining:0.00}s");
+                //Debug.Log($"Cooldown… {equippedWeapon.CooldownRemaining:0.00}s");
             }
         }
     }
