@@ -1,0 +1,12 @@
+﻿<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ui:Style src="StoreActionButton.uss" />
+  <ui:VisualElement name="StoreActionButton" class="store-button can-buy">
+    <ui:Label name="Icon" class="store-button__icon store-button__icon--heal" text="❤" />
+    <ui:VisualElement class="store-button__texts">
+      <ui:Label name="Label" class="store-button__label" text="Soin immédiat" />
+      <ui:Label name="Sub"   class="store-button__sub"   text="Améliorer la santé du joueur" />
+    </ui:VisualElement>
+    <ui:Label name="Price" class="store-button__price" text="50 or" />
+    <ui:Label name="Lock" class="store-button__lock" text="🔒" />
+  </ui:VisualElement>
+</ui:UXML>

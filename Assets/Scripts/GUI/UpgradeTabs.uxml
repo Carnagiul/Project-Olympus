@@ -1,0 +1,53 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:app="Assets.Scripts.UI.Store" editor-extension-mode="False">
+    <Style src="project://database/Assets/Resources/StoreActionButton.uss?fileID=7433441132597879392&amp;guid=fe52b1d45a848934d918af0dd72422f6&amp;type=3#StoreActionButton" />
+    <Style src="project://database/Assets/Resources/UpgradeTabs.uss?fileID=7433441132597879392&amp;guid=a9785403a853aaa4396063e353cb9bb1&amp;type=3#UpgradeTabs" />
+    <ui:VisualElement name="Root" class="overlay">
+        <ui:VisualElement name="Frame" class="frame">
+            <ui:Label name="Header" text="UPGRADES" class="header" style="white-space: normal; -unity-text-align: upper-center; background-color: rgb(0, 0, 0); color: rgb(255, 255, 255);" />
+            <ui:VisualElement name="TabBar" class="tabbar" style="justify-content: center;">
+                <ui:Button name="Tab_Player" class="tab tab--active">
+                    <ui:Label text="👤 Mon Personnage" />
+                </ui:Button>
+               <ui:Button name="Tab_Nexus" class="tab">
+                    <ui:Label text="Nexus" />
+                </ui:Button>
+               <ui:Button name="Tab_Waves" class="tab">
+                    <ui:Label text="Vagues" />
+                </ui:Button>
+            </ui:VisualElement>
+            <ui:VisualElement name="Tabs" class="tabs">
+                <ui:VisualElement name="TabContent_Player" class="tabcontent tabcontent--active" style="display: flex;">
+                    <ui:Label text="Joueur" class="title" style="align-self: center;" />
+                    <app:StoreActionButton name="Btn_PlayerMaxHp" label="Améliorer PV Max" sub="Niveau +1" price="--" icon="❤" canBuy="false" uss="project://database/Assets/Resources/StoreActionButton.uss?fileID=7433441132597879392&amp;guid=fe52b1d45a848934d918af0dd72422f6&amp;type=3#StoreActionButton" uxml="project://database/Assets/Resources/StoreActionButton.uxml?fileID=9197481963319205126&amp;guid=1e0e48da0271bff48b78aa88cc05700f&amp;type=3#StoreActionButton" />
+                    <app:StoreActionButton name="Btn_PlayerArmorTypeCycler" label="Type d&apos;armure" sub="Kevlar" price="0 or" icon="🛡️" canBuy="true" uss="project://database/Assets/Resources/StoreActionButton.uss?fileID=7433441132597879392&amp;guid=fe52b1d45a848934d918af0dd72422f6&amp;type=3#StoreActionButton" uxml="project://database/Assets/Resources/StoreActionButton.uxml?fileID=9197481963319205126&amp;guid=1e0e48da0271bff48b78aa88cc05700f&amp;type=3#StoreActionButton" />
+                    <app:StoreActionButton name="Btn_PlayerArmorLvl" label="Améliorer armure" sub="Niveau +1" price="--" icon="🛡️" canBuy="false" uss="project://database/Assets/Resources/StoreActionButton.uss?fileID=7433441132597879392&amp;guid=fe52b1d45a848934d918af0dd72422f6&amp;type=3#StoreActionButton" uxml="project://database/Assets/Resources/StoreActionButton.uxml?fileID=9197481963319205126&amp;guid=1e0e48da0271bff48b78aa88cc05700f&amp;type=3#StoreActionButton" />
+                    <app:StoreActionButton name="Btn_PlayerDamageTypeCycler" label="Type d&apos;attaque" sub="Kinetic" price="0 or" icon="⚔️" canBuy="true" uss="project://database/Assets/Resources/StoreActionButton.uss?fileID=7433441132597879392&amp;guid=fe52b1d45a848934d918af0dd72422f6&amp;type=3#StoreActionButton" uxml="project://database/Assets/Resources/StoreActionButton.uxml?fileID=9197481963319205126&amp;guid=1e0e48da0271bff48b78aa88cc05700f&amp;type=3#StoreActionButton" />
+                    <app:StoreActionButton name="Btn_PlayerWeaponLvl" label="Améliorer arme" sub="Niveau +1" price="--" icon="⚔️" canBuy="false" uss="project://database/Assets/Resources/StoreActionButton.uss?fileID=7433441132597879392&amp;guid=fe52b1d45a848934d918af0dd72422f6&amp;type=3#StoreActionButton" uxml="project://database/Assets/Resources/StoreActionButton.uxml?fileID=9197481963319205126&amp;guid=1e0e48da0271bff48b78aa88cc05700f&amp;type=3#StoreActionButton" />
+                    <ui:VisualElement class="sep" />
+                    <app:StoreActionButton name="Btn_HealPlayer" label="Soigner le joueur" sub="Prix fixe" price="50 or" icon="❤" canBuy="true" uss="project://database/Assets/Resources/StoreActionButton.uss?fileID=7433441132597879392&amp;guid=fe52b1d45a848934d918af0dd72422f6&amp;type=3#StoreActionButton" uxml="project://database/Assets/Resources/StoreActionButton.uxml?fileID=9197481963319205126&amp;guid=1e0e48da0271bff48b78aa88cc05700f&amp;type=3#StoreActionButton" />
+                </ui:VisualElement>
+                <ui:VisualElement name="TabContent_Nexus" class="tabcontent" style="display: none;">
+                    <ui:Label text="Nexus" class="title" />
+                    <app:StoreActionButton name="Btn_NexusLevel" label="Améliorer niveau du Nexus" sub="Augmente les stats globales" price="--" icon="🏛️" canBuy="false" uss="project://database/Assets/Resources/StoreActionButton.uss?fileID=7433441132597879392&amp;guid=fe52b1d45a848934d918af0dd72422f6&amp;type=3#StoreActionButton" uxml="project://database/Assets/Resources/StoreActionButton.uxml?fileID=9197481963319205126&amp;guid=1e0e48da0271bff48b78aa88cc05700f&amp;type=3#StoreActionButton" />
+                    <app:StoreActionButton name="Btn_NexusMaxHp" label="Améliorer PV Max" sub="Niveau +1" price="--" icon="❤" canBuy="false" uss="project://database/Assets/Resources/StoreActionButton.uss?fileID=7433441132597879392&amp;guid=fe52b1d45a848934d918af0dd72422f6&amp;type=3#StoreActionButton" uxml="project://database/Assets/Resources/StoreActionButton.uxml?fileID=9197481963319205126&amp;guid=1e0e48da0271bff48b78aa88cc05700f&amp;type=3#StoreActionButton" />
+                    <app:StoreActionButton name="Btn_NexusArmorTypeCycler" label="Type d&apos;armure" sub="Kevlar" price="0 or" icon="🛡️" canBuy="true" uss="project://database/Assets/Resources/StoreActionButton.uss?fileID=7433441132597879392&amp;guid=fe52b1d45a848934d918af0dd72422f6&amp;type=3#StoreActionButton" uxml="project://database/Assets/Resources/StoreActionButton.uxml?fileID=9197481963319205126&amp;guid=1e0e48da0271bff48b78aa88cc05700f&amp;type=3#StoreActionButton" />
+                    <app:StoreActionButton name="Btn_NexusArmorLvl" label="Améliorer armure" sub="Niveau +1" price="--" icon="🛡️" canBuy="false" uss="project://database/Assets/Resources/StoreActionButton.uss?fileID=7433441132597879392&amp;guid=fe52b1d45a848934d918af0dd72422f6&amp;type=3#StoreActionButton" uxml="project://database/Assets/Resources/StoreActionButton.uxml?fileID=9197481963319205126&amp;guid=1e0e48da0271bff48b78aa88cc05700f&amp;type=3#StoreActionButton" />
+                    <ui:VisualElement class="sep" />
+                    <app:StoreActionButton name="Btn_HealNexus" label="Soigner le Nexus" sub="Prix fixe" price="80 or" icon="❤" canBuy="true" uss="project://database/Assets/Resources/StoreActionButton.uss?fileID=7433441132597879392&amp;guid=fe52b1d45a848934d918af0dd72422f6&amp;type=3#StoreActionButton" uxml="project://database/Assets/Resources/StoreActionButton.uxml?fileID=9197481963319205126&amp;guid=1e0e48da0271bff48b78aa88cc05700f&amp;type=3#StoreActionButton" />
+                </ui:VisualElement>
+                <ui:VisualElement name="TabContent_Waves" class="tabcontent" style="display: none;">
+                    <ui:Label text="Vagues" class="title" />
+                    <ui:Toggle name="Tgl_Giants" text="Activer élites (Giants)" class="toggle" />
+                    <ui:SliderInt name="Sld_BaseGiantChance" low-value="0" high-value="100" class="slider" />
+                    <ui:Label name="Txt_BaseGiantChance" text="Chance de base élites: 0%" class="sub" />
+                    <ui:SliderInt name="Sld_MaxGiantChance" low-value="0" high-value="100" class="slider" />
+                    <ui:Label name="Txt_MaxGiantChance" text="Chance max élites: 0%" class="sub" />
+                    <ui:SliderInt name="Sld_GiantRamp" low-value="0" high-value="100" class="slider" />
+                    <ui:Label name="Txt_GiantRamp" text="Rampe élites (%/min): 0%" class="sub" />
+                    <ui:VisualElement class="sep" />
+                    <ui:Label text="(Ces contrôles pilotent PortalSpawner[] du Nexus)" class="sub" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

@@ -1,0 +1,53 @@
+.store-button {
+  flex-direction: row;
+  align-items: center;
+  padding: 14px;
+  min-width: 260px;
+  border-radius: 12px;
+  border-width: 1px;
+  border-color: rgba(255,255,255,0.08);
+  background-color: rgba(255,255,255,0.02);
+}
+
+.store-button__icon {
+  width: 28px; height: 28px;
+  justify-content: center; align-items: center;
+  border-radius: 10px;
+  border-width: 1px; border-color: rgba(255,255,255,0.08);
+  margin-right: 10px;
+}
+.store-button__icon--heal { background-color: rgba(239,68,68,0.10); }
+
+.store-button__texts { flex-grow: 0; }
+.store-button__label { unity-font-style: bold; font-size: 14px; color: #e5e7eb; }
+.store-button__sub   { font-size: 12px; color: #9ca3af; }
+
+.store-button__price {
+  margin-left: auto;
+  unity-font-style: bold;
+  font-size: 12px;
+  padding: 6px 8px;
+  border-radius: 999px;
+  border-width: 1px; border-color: rgba(251,191,36,0.35);
+  background-color: rgba(251,191,36,0.12);
+  color: #fde68a;
+}
+
+.store-button__lock { position: absolute; right: 8px; top: 8px; display: none; opacity: 0.85; }
+
+.can-buy {
+  border-color: rgba(16,185,129,0.35);
+}
+.can-buy .store-button__price {
+  border-color: rgba(16,185,129,0.35);
+  background-color: rgba(16,185,129,0.12);
+  color: #bbf7d0;
+}
+
+.no-funds { opacity: 0.6; }
+.no-funds .store-button__price {
+  border-color: rgba(239,68,68,0.40);
+  background-color: rgba(239,68,68,0.10);
+  color: #fecaca;
+}
+.no-funds .store-button__lock { display: flex; }
