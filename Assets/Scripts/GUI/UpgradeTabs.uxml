@@ -1,17 +1,17 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:app="Assets.Scripts.UI.Store" editor-extension-mode="False">
     <Style src="project://database/Assets/Resources/StoreActionButton.uss?fileID=7433441132597879392&amp;guid=fe52b1d45a848934d918af0dd72422f6&amp;type=3#StoreActionButton" />
     <Style src="project://database/Assets/Resources/UpgradeTabs.uss?fileID=7433441132597879392&amp;guid=a9785403a853aaa4396063e353cb9bb1&amp;type=3#UpgradeTabs" />
-    <ui:VisualElement name="Root" class="overlay">
+    <ui:VisualElement name="Root" class="overlay" style="visibility: visible; overflow: visible; display: flex; margin-top: 300px;">
         <ui:VisualElement name="Frame" class="frame">
             <ui:Label name="Header" text="UPGRADES" class="header" style="white-space: normal; -unity-text-align: upper-center; background-color: rgb(0, 0, 0); color: rgb(255, 255, 255);" />
             <ui:VisualElement name="TabBar" class="tabbar" style="justify-content: center;">
                 <ui:Button name="Tab_Player" class="tab tab--active">
                     <ui:Label text="👤 Mon Personnage" />
                 </ui:Button>
-               <ui:Button name="Tab_Nexus" class="tab">
+                <ui:Button name="Tab_Nexus" class="tab">
                     <ui:Label text="Nexus" />
                 </ui:Button>
-               <ui:Button name="Tab_Waves" class="tab">
+                <ui:Button name="Tab_Waves" class="tab">
                     <ui:Label text="Vagues" />
                 </ui:Button>
             </ui:VisualElement>

@@ -143,7 +143,8 @@ public class FpsController : EntityController
 
     private void OnGoldChanged(int amount)
     {
-        topBarHUD.SetGold(amount);
+        if (topBarHUD != null)
+            topBarHUD.SetGold(amount);
         //if (goldText != null)
         //    goldText.text = $"Gold : {amount}";
     }
